@@ -1661,7 +1661,7 @@
             <tr id="rowSkipAdd" style="display:none;">
               <td class="item-name">
                 (+) 세대생략 할증세액
-                <span class="item-law">상증세법 제57조 (30% 할증)</span>
+                <span class="item-law">상증세법 제57조 (일반 30%, 미성년·20억 초과 40%)</span>
               </td>
               <td class="item-val" style="color:var(--accent-amber);" id="dispSkipTax">+0원</td>
             </tr>
@@ -1865,8 +1865,8 @@
   }
 
   function getDonorGroup(personKey) {
-    if (personKey === 'parent_father' || personKey === 'parent_mother') {
-      return 'parents';
+    if (personKey === 'parent_father' || personKey === 'parent_mother' || personKey === 'grandparent') {
+      return 'direct_ascendants';
     }
     return personKey;
   }
@@ -1877,7 +1877,6 @@
     }
     if (personKey === 'spouse') return 600000000;
     if (personKey === 'child') return 50000000;
-    if (personKey === 'grandparent') return recipientAge === 'adult' ? 50000000 : 20000000;
     if (personKey === 'relative') return 10000000;
     return 0; // 'other'
   }
@@ -1958,9 +1957,10 @@
 
       // Marriage Deduction
       let appliedMarriageDeduction = 0;
-      if (ev.isMarriage && (evGroup === 'parents' || evGroup === 'grandparent')) {
+      if (ev.isMarriage && evGroup === 'direct_ascendants') {
         const remainingAfterStandard = totalTaxableVal - appliedStandardDeduction;
-        appliedMarriageDeduction = Math.min(remainingAfterStandard, 100000000);
+        const remainingMarriageDeduction = Math.max(0, 100000000 - priorMarriageDeductionsSum);
+        appliedMarriageDeduction = Math.min(remainingAfterStandard, remainingMarriageDeduction);
       }
 
       // Tax Base (1,000원 미만 절사)
@@ -2004,10 +2004,11 @@
         calculatedTax = Math.floor(taxBase * rate - progressiveDeduction);
       }
 
-      // Generation skip (30% surtax)
+      // Generation skip surtax applies to grandparent gifts only.
       let skipTax = 0;
-      if (ev.isSkip && calculatedTax > 0) {
-        skipTax = Math.floor(calculatedTax * 0.3);
+      if (ev.isSkip && ev.person === 'grandparent' && calculatedTax > 0) {
+        const skipRate = recipientAge === 'minor' && currentGross > 2000000000 ? 0.4 : 0.3;
+        skipTax = Math.floor(calculatedTax * skipRate);
       }
 
       const totalCalculatedTax = calculatedTax + skipTax;
@@ -2078,7 +2079,7 @@
 
     giftEvents.forEach(ev => {
       const d = new Date(ev.date);
-      if (d >= tenYearsAgoFromNow && getDonorGroup(ev.person) === 'parents') {
+      if (d >= tenYearsAgoFromNow && getDonorGroup(ev.person) === 'direct_ascendants') {
         const res = calculationResults[ev.id];
         if (res) parentUsed += res.appliedStandardDeduction;
       }
