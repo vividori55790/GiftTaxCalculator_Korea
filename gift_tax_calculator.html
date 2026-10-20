@@ -6,7 +6,7 @@
   <title>증여세 정밀 시뮬레이터 | 통합 금융 대시보드</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-base: #07090e;
@@ -40,7 +40,7 @@
     }
 
     body {
-      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
       background-color: var(--bg-base);
       color: var(--text-main);
       min-height: 100vh;
@@ -471,7 +471,7 @@
       font-size: 0.95rem;
       font-weight: 800;
       color: var(--accent-cyan);
-      font-family: 'Pretendard', sans-serif;
+      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
     }
 
     .amount-input-box {
@@ -1574,12 +1574,16 @@
 
       let priorGrossSum = 0;
       let priorDeductionsSum = 0;
-      let priorCalculatedTaxSum = 0;
+      let priorMarriageDeductionsSum = 0;
+      let priorCalculatedTax = 0;
 
       priorSameGroupEvents.forEach(p => {
         priorGrossSum += (p.event.amount - Math.min(p.event.debt, p.event.amount));
         priorDeductionsSum += p.result.appliedStandardDeduction;
-        priorCalculatedTaxSum += p.result.calculatedTax;
+        priorMarriageDeductionsSum += p.result.appliedMarriageDeduction;
+        // The credit is the tax already calculated for the immediately
+        // preceding cumulative total, not the sum of recalculated totals.
+        priorCalculatedTax = Math.max(priorCalculatedTax, p.result.totalCalculatedTax);
       });
 
       const remainingDeduction = Math.max(0, maxGroupDeduction - priorDeductionsSum);
@@ -1604,7 +1608,9 @@
       }
 
       // Tax Base (1,000원 미만 절사)
-      let taxBase = Math.max(0, totalTaxableVal - appliedStandardDeduction - appliedMarriageDeduction);
+      const cumulativeDeductions = priorDeductionsSum + appliedStandardDeduction +
+        priorMarriageDeductionsSum + appliedMarriageDeduction;
+      let taxBase = Math.max(0, totalTaxableVal - cumulativeDeductions);
       taxBase = Math.floor(taxBase / 1000) * 1000;
 
       // Progressive Tax Rate
@@ -1652,8 +1658,8 @@
 
       // Prior paid tax credit (상증세법 제58조)
       let appliedPriorCredit = 0;
-      if (isCumulative && priorCalculatedTaxSum > 0 && totalCalculatedTax > 0) {
-        appliedPriorCredit = Math.min(totalCalculatedTax, priorCalculatedTaxSum);
+      if (isCumulative && priorCalculatedTax > 0 && totalCalculatedTax > 0) {
+        appliedPriorCredit = Math.min(totalCalculatedTax, priorCalculatedTax);
       }
 
       const taxAfterPriorCredit = Math.max(0, totalCalculatedTax - appliedPriorCredit);
