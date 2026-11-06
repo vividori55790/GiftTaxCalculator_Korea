@@ -1,36 +1,116 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="system">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>증여세 정밀 시뮬레이터 | 통합 금융 대시보드</title>
+  <title>증여세 정밀 시뮬레이터 Pro | 상증세법 & 최신 판례 정밀 엔진</title>
+  <meta name="description" content="상속세 및 증여세법 제47조(10년 동일인 합산 판례) 및 제58조(기납부세액공제 한도 산식), 제53조의2(혼인·출산 1억 공제), 부담부증여 양도세 안내를 탑재한 정밀 시뮬레이터">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-base: #07090e;
-      --bg-surface: #0f131d;
-      --bg-elevated: #161c2b;
-      --bg-card: rgba(22, 28, 43, 0.7);
-      --bg-card-hover: rgba(28, 36, 56, 0.85);
-      --border-subtle: rgba(255, 255, 255, 0.07);
-      --border-hover: rgba(255, 255, 255, 0.15);
+      color-scheme: light dark;
+      --font-sans: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', Menlo, Consolas, monospace;
+
+      /* Base Light Palette (Default) */
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-elevated: #f1f5f9;
+      --bg-card: rgba(255, 255, 255, 0.88);
+      --bg-card-hover: #ffffff;
+      --border-subtle: #e2e8f0;
+      --border-hover: #cbd5e1;
       --border-accent: #3b82f6;
-      --text-main: #f8fafc;
-      --text-sub: #94a3b8;
+
+      --text-main: #0f172a;
+      --text-sub: #475569;
       --text-muted: #64748b;
-      --accent-blue: #3b82f6;
-      --accent-indigo: #6366f1;
-      --accent-cyan: #06b6d4;
-      --accent-emerald: #10b981;
-      --accent-amber: #f59e0b;
-      --accent-rose: #f43f5e;
+
+      --accent-blue: #2563eb;
+      --accent-blue-soft: #eff6ff;
+      --accent-indigo: #4f46e5;
+      --accent-emerald: #059669;
+      --accent-emerald-soft: #ecfdf5;
+      --accent-amber: #d97706;
+      --accent-amber-soft: #fffbeb;
+      --accent-rose: #e11d48;
+      --accent-rose-soft: #fff1f2;
+      --accent-purple: #7c3aed;
+      --accent-purple-soft: #f5f3ff;
+
       --radius-sm: 8px;
       --radius-md: 14px;
       --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+      --shadow-hover: 0 10px 30px -4px rgba(15, 23, 42, 0.1);
+      --glass-blur: 16px;
+    }
+
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --bg-base: #0b0f19;
+      --bg-surface: #111827;
+      --bg-elevated: #1e293b;
+      --bg-card: rgba(17, 24, 39, 0.85);
+      --bg-card-hover: #1f293d;
+      --border-subtle: rgba(255, 255, 255, 0.09);
+      --border-hover: rgba(255, 255, 255, 0.18);
+      --border-accent: #60a5fa;
+
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+      --text-muted: #64748b;
+
+      --accent-blue: #3b82f6;
+      --accent-blue-soft: rgba(59, 130, 246, 0.12);
+      --accent-indigo: #6366f1;
+      --accent-emerald: #10b981;
+      --accent-emerald-soft: rgba(16, 185, 129, 0.12);
+      --accent-amber: #f59e0b;
+      --accent-amber-soft: rgba(245, 158, 11, 0.12);
+      --accent-rose: #f43f5e;
+      --accent-rose-soft: rgba(244, 63, 94, 0.12);
+      --accent-purple: #a855f7;
+      --accent-purple-soft: rgba(168, 85, 247, 0.12);
+
       --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border-subtle);
-      --shadow-active: 0 12px 35px -5px rgba(59, 130, 246, 0.25), 0 0 0 1.5px var(--accent-blue);
+      --shadow-hover: 0 14px 40px -5px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border-hover);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      [data-theme="system"] {
+        color-scheme: dark;
+        --bg-base: #0b0f19;
+        --bg-surface: #111827;
+        --bg-elevated: #1e293b;
+        --bg-card: rgba(17, 24, 39, 0.85);
+        --bg-card-hover: #1f293d;
+        --border-subtle: rgba(255, 255, 255, 0.09);
+        --border-hover: rgba(255, 255, 255, 0.18);
+        --border-accent: #60a5fa;
+
+        --text-main: #f8fafc;
+        --text-sub: #94a3b8;
+        --text-muted: #64748b;
+
+        --accent-blue: #3b82f6;
+        --accent-blue-soft: rgba(59, 130, 246, 0.12);
+        --accent-indigo: #6366f1;
+        --accent-emerald: #10b981;
+        --accent-emerald-soft: rgba(16, 185, 129, 0.12);
+        --accent-amber: #f59e0b;
+        --accent-amber-soft: rgba(245, 158, 11, 0.12);
+        --accent-rose: #f43f5e;
+        --accent-rose-soft: rgba(244, 63, 94, 0.12);
+        --accent-purple: #a855f7;
+        --accent-purple-soft: rgba(168, 85, 247, 0.12);
+
+        --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border-subtle);
+        --shadow-hover: 0 14px 40px -5px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border-hover);
+      }
     }
 
     * {
@@ -40,16 +120,17 @@
     }
 
     body {
-      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+      font-family: var(--font-sans);
       background-color: var(--bg-base);
       color: var(--text-main);
       min-height: 100vh;
-      line-height: 1.5;
-      padding: 2.5rem 1.5rem;
+      line-height: 1.55;
+      padding: 2rem 1.25rem 4rem;
       background-image: 
-        radial-gradient(ellipse 60% 40% at 20% -10%, rgba(59, 130, 246, 0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 85% 105%, rgba(16, 185, 129, 0.08) 0%, transparent 60%);
+        radial-gradient(ellipse 65% 45% at 20% -10%, rgba(59, 130, 246, 0.08), transparent 60%),
+        radial-gradient(ellipse 55% 45% at 85% 105%, rgba(16, 185, 129, 0.06), transparent 60%);
       background-attachment: fixed;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     .container {
@@ -57,7 +138,7 @@
       margin: 0 auto;
     }
 
-    /* Top Brand & Header */
+    /* Header */
     header {
       display: flex;
       justify-content: space-between;
@@ -70,92 +151,152 @@
     }
 
     .header-left h1 {
-      font-size: 2.1rem;
+      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
       font-weight: 800;
-      letter-spacing: -0.03em;
-      background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.035em;
       margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .header-badge-pro {
+      font-size: 0.75rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: #ffffff;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+      vertical-align: middle;
     }
 
     .header-left p {
       color: var(--text-sub);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
+      max-width: 680px;
     }
 
-    .header-badge {
+    .header-tag-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.6rem;
+    }
+
+    .header-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--accent-blue-soft);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      color: var(--accent-blue);
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .header-pill.gold {
+      background: var(--accent-amber-soft);
+      border-color: rgba(217, 119, 6, 0.25);
+      color: var(--accent-amber);
+    }
+
+    .header-pill.emerald {
+      background: var(--accent-emerald-soft);
+      border-color: rgba(5, 150, 105, 0.25);
+      color: var(--accent-emerald);
+    }
+
+    .header-tools {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    /* Interactive Buttons */
+    .btn-action {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      border-radius: var(--radius-sm);
+      padding: 0.55rem 0.85rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      background: rgba(59, 130, 246, 0.1);
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      color: #93c5fd;
-      padding: 0.35rem 0.85rem;
-      border-radius: 9999px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-bottom: 0.6rem;
+      transition: all 0.15s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-action:hover {
+      background: var(--bg-elevated);
+      border-color: var(--border-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-action.highlight {
+      background: var(--accent-blue);
+      border-color: var(--accent-blue);
+      color: white;
+    }
+
+    .btn-action.highlight:hover {
+      filter: brightness(1.1);
+    }
+
+    .btn-theme-toggle {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-theme-toggle:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-elevated);
     }
 
     /* Recipient Profile Selector */
     .profile-switch {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 0.4rem 0.6rem;
-    }
-
-    .header-tools {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .utility-btn {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-sub);
-      border-radius: var(--radius-sm);
-      padding: 0.55rem 0.75rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .utility-btn:hover {
-      color: var(--text-main);
-      border-color: var(--border-hover);
-      background: var(--bg-card-hover);
-    }
-
-    .save-status {
-      color: var(--text-muted);
-      font-size: 0.75rem;
-      white-space: nowrap;
+      padding: 0.35rem 0.45rem;
+      gap: 0.35rem;
+      box-shadow: var(--shadow-sm);
     }
 
     .profile-switch .label {
-      font-size: 0.82rem;
-      font-weight: 600;
+      font-size: 0.8rem;
+      font-weight: 700;
       color: var(--text-muted);
-      padding-left: 0.4rem;
+      padding: 0 0.4rem;
     }
 
     .btn-toggle-age {
       background: transparent;
       border: none;
       color: var(--text-sub);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 600;
-      padding: 0.45rem 1rem;
+      padding: 0.4rem 0.8rem;
       border-radius: var(--radius-sm);
       cursor: pointer;
       transition: all 0.15s ease;
@@ -164,7 +305,7 @@
     .btn-toggle-age.active {
       background: var(--accent-blue);
       color: white;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
     }
 
     /* Bento KPI Bar */
@@ -192,9 +333,9 @@
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 1.25rem;
+      box-shadow: var(--shadow-card);
       position: relative;
       overflow: hidden;
-      box-shadow: var(--shadow-card);
       transition: transform 0.2s ease, border-color 0.2s ease;
     }
 
@@ -204,12 +345,12 @@
     }
 
     .bento-card .kpi-label {
-      font-size: 0.8rem;
-      font-weight: 600;
+      font-size: 0.78rem;
+      font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.4rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.45rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -218,7 +359,7 @@
     .bento-card .kpi-val {
       font-size: 1.65rem;
       font-weight: 800;
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
       color: var(--text-main);
       letter-spacing: -0.02em;
     }
@@ -229,11 +370,10 @@
       margin-top: 0.35rem;
     }
 
-    /* Progress bar in KPI */
     .progress-bar-bg {
       width: 100%;
       height: 6px;
-      background: rgba(255, 255, 255, 0.08);
+      background: var(--bg-elevated);
       border-radius: 999px;
       margin-top: 0.6rem;
       overflow: hidden;
@@ -241,7 +381,7 @@
 
     .progress-bar-fill {
       height: 100%;
-      background: linear-gradient(90deg, #10b981 0%, #38bdf8 100%);
+      background: linear-gradient(90deg, #10b981 0%, #3b82f6 100%);
       border-radius: 999px;
       transition: width 0.3s ease;
     }
@@ -249,7 +389,7 @@
     /* Main Grid */
     .main-grid {
       display: grid;
-      grid-template-columns: 1.45fr 0.85fr;
+      grid-template-columns: 1.45fr 0.95fr;
       gap: 2rem;
       align-items: start;
     }
@@ -260,41 +400,305 @@
       }
     }
 
-    /* Left: Gift Events Ledger */
+    /* Left: Ledger Stream */
     .ledger-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .ledger-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
     }
 
     .ledger-title {
-      font-size: 1.2rem;
-      font-weight: 700;
+      font-size: 1.25rem;
+      font-weight: 800;
       display: flex;
       align-items: center;
       gap: 0.6rem;
     }
 
-    .btn-add-event {
-      display: inline-flex;
+    .sort-control-group {
+      display: flex;
       align-items: center;
-      gap: 0.5rem;
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: white;
-      padding: 0.6rem 1.25rem;
+      gap: 0.35rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
-      font-size: 0.88rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.35);
+      padding: 0.2rem 0.3rem;
+      box-shadow: var(--shadow-sm);
     }
 
-    .btn-add-event:hover {
+    .sort-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      padding: 0 0.25rem 0 0.35rem;
+    }
+
+    .sort-segmented {
+      display: flex;
+      gap: 0.2rem;
+    }
+
+    .sort-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-sub);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.55rem;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all 0.15s ease;
+      font-family: var(--font-sans);
+    }
+
+    .sort-btn:hover {
+      color: var(--text-main);
+      background: var(--bg-elevated);
+    }
+
+    .sort-btn.active {
+      background: var(--accent-blue);
+      color: white;
+      font-weight: 700;
+    }
+
+    /* Donor Hub Bar */
+    .donor-hub-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .donor-hub-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-right: 0.25rem;
+      white-space: nowrap;
+    }
+
+    .hub-chip-btn {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+
+    .hub-chip-btn:hover {
+      background: var(--accent-blue-soft);
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
       transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+    }
+
+    .hub-chip-btn.planner {
+      background: var(--accent-purple-soft);
+      border-color: rgba(124, 58, 237, 0.3);
+      color: var(--accent-purple);
+      margin-left: auto;
+    }
+
+    .hub-chip-btn.planner:hover {
+      background: var(--accent-purple);
+      color: white;
+    }
+
+    /* Donor Group Section */
+    .donor-group-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.25rem 0.75rem;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .donor-group-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .donor-profile-info {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .donor-avatar {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .donor-name-box h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .donor-sub-desc {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .donor-group-stats {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .donor-stat-pill {
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      background: var(--bg-elevated);
+      color: var(--text-sub);
+      font-family: var(--font-mono);
+    }
+
+    .donor-split-stream {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* Transparent Calculation Insight Box in Receipt */
+    .calc-insight-box {
+      background: var(--bg-elevated);
+      border-left: 3px solid var(--accent-blue);
+      padding: 0.55rem 0.75rem;
+      border-radius: 0 6px 6px 0;
+      margin-top: 0.4rem;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      color: var(--text-sub);
+    }
+
+    .calc-insight-box.purple {
+      border-left-color: var(--accent-purple);
+      background: var(--accent-purple-soft);
+    }
+
+    .calc-insight-box.emerald {
+      border-left-color: var(--accent-emerald);
+      background: var(--accent-emerald-soft);
+    }
+
+    .calc-insight-box.amber {
+      border-left-color: var(--accent-amber);
+      background: var(--accent-amber-soft);
+    }
+
+    .calc-formula-tag {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--text-main);
+      background: var(--bg-surface);
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      border: 1px solid var(--border-subtle);
+      display: inline-block;
+      margin: 1px 0;
+    }
+
+    /* Tax Flow Diagram Card */
+    .tax-flow-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .tax-flow-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .tax-flow-steps {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+      font-size: 0.76rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
+
+    .flow-node {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      color: var(--text-main);
+    }
+
+    .flow-node.highlight {
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+      background: var(--accent-blue-soft);
+    }
+
+    .flow-node.tax {
+      border-color: var(--accent-amber);
+      color: var(--accent-amber);
+      background: var(--accent-amber-soft);
+      font-size: 0.82rem;
+    }
+
+    .flow-arrow {
+      color: var(--text-muted);
+      font-weight: 900;
     }
 
     .event-stream {
@@ -303,54 +707,54 @@
       gap: 1.25rem;
     }
 
-    /* Modern Event Card */
+    /* Event Card */
     .event-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 1.5rem;
       box-shadow: var(--shadow-card);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
     }
 
     .event-card:hover {
       border-color: var(--border-hover);
-      background: var(--bg-card-hover);
+      box-shadow: var(--shadow-hover);
     }
 
     .event-card.selected {
       border-color: var(--accent-blue);
-      box-shadow: var(--shadow-active);
-      background: linear-gradient(180deg, rgba(22, 28, 43, 0.95) 0%, rgba(15, 19, 30, 0.95) 100%);
+      box-shadow: 0 0 0 1.5px var(--accent-blue), var(--shadow-hover);
     }
 
-    /* Top Row of Card */
     .card-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 1.25rem;
       padding-bottom: 0.85rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+      gap: 0.75rem;
     }
 
     .card-meta {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.65rem;
       flex-wrap: wrap;
     }
 
     .badge-order {
-      background: rgba(59, 130, 246, 0.15);
+      background: var(--accent-blue-soft);
       border: 1px solid rgba(59, 130, 246, 0.3);
-      color: #93c5fd;
+      color: var(--accent-blue);
       font-size: 0.78rem;
       font-weight: 700;
       padding: 0.2rem 0.55rem;
       border-radius: 6px;
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
     }
 
     .event-card.selected .badge-order {
@@ -361,7 +765,7 @@
     .date-input-wrap {
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.35rem;
     }
 
     .date-input-wrap input[type="date"] {
@@ -385,7 +789,7 @@
       border: 1px solid var(--border-subtle);
       color: var(--text-main);
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 700;
       padding: 0.35rem 0.75rem;
       border-radius: 6px;
       outline: none;
@@ -396,30 +800,63 @@
       border-color: var(--accent-blue);
     }
 
+    .group-indicator-pill {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+    }
+
     .card-top-right {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .badge-deadline {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .badge-deadline.ontime {
+      background: var(--accent-blue-soft);
+      color: var(--accent-blue);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .badge-deadline.overdue {
+      background: var(--accent-rose-soft);
+      color: var(--accent-rose);
+      border: 1px solid rgba(225, 29, 72, 0.3);
     }
 
     .badge-tax-status {
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
       font-size: 0.82rem;
       font-weight: 700;
-      padding: 0.3rem 0.75rem;
+      padding: 0.28rem 0.75rem;
       border-radius: 999px;
     }
 
     .badge-tax-status.zero {
-      background: rgba(16, 185, 129, 0.12);
+      background: var(--accent-emerald-soft);
       border: 1px solid rgba(16, 185, 129, 0.3);
-      color: #6ee7b7;
+      color: var(--accent-emerald);
     }
 
     .badge-tax-status.taxed {
-      background: rgba(245, 158, 11, 0.12);
+      background: var(--accent-amber-soft);
       border: 1px solid rgba(245, 158, 11, 0.3);
-      color: #fcd34d;
+      color: var(--accent-amber);
     }
 
     .btn-delete-card {
@@ -434,11 +871,11 @@
     }
 
     .btn-delete-card:hover {
-      background: rgba(244, 63, 94, 0.15);
+      background: var(--accent-rose-soft);
       color: var(--accent-rose);
     }
 
-    /* Hero Amount Input Section */
+    /* Amount Hero Input */
     .amount-hero-section {
       background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
@@ -457,21 +894,21 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.45rem;
     }
 
     .amount-hero-header .label {
       font-size: 0.82rem;
       font-weight: 700;
       color: var(--text-muted);
-      letter-spacing: 0.03em;
+      letter-spacing: 0.02em;
     }
 
     .amount-hero-header .korean-badge {
       font-size: 0.95rem;
       font-weight: 800;
-      color: var(--accent-cyan);
-      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      color: var(--accent-blue);
+      font-family: var(--font-sans);
     }
 
     .amount-input-box {
@@ -485,7 +922,7 @@
       font-size: 1.6rem;
       font-weight: 800;
       color: var(--text-muted);
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
       user-select: none;
     }
 
@@ -495,102 +932,52 @@
       border: none;
       outline: none;
       color: var(--text-main);
-      font-size: 2rem;
+      font-size: 1.95rem;
       font-weight: 800;
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
       letter-spacing: -0.02em;
     }
 
-    .hero-input.invalid,
-    .sub-input.invalid {
-      color: #fda4af;
-      border-color: var(--accent-rose);
-    }
-
-    .field-error {
-      color: #fda4af;
-      display: none;
-      font-size: 0.72rem;
-      margin-top: 0.35rem;
-    }
-
-    .field-error.visible {
-      display: block;
-    }
-
-    .btn-inline-clear {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--text-muted);
-      cursor: pointer;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-      transition: all 0.15s;
-      flex-shrink: 0;
-    }
-
-    .btn-inline-clear:hover {
-      background: rgba(244, 63, 94, 0.8);
-      border-color: var(--accent-rose);
-      color: white;
-    }
-
-    /* Modern Quick Chip Row */
+    /* Chips Row */
     .chips-row {
       display: flex;
       flex-wrap: wrap;
       gap: 0.45rem;
       margin-top: 0.85rem;
       padding-top: 0.75rem;
-      border-top: 1px dashed rgba(255, 255, 255, 0.07);
+      border-top: 1px dashed var(--border-subtle);
     }
 
     .chip-btn {
-      background: rgba(255, 255, 255, 0.04);
+      background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       color: var(--text-sub);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 600;
-      padding: 0.35rem 0.65rem;
+      padding: 0.3rem 0.65rem;
       border-radius: 6px;
       cursor: pointer;
       transition: all 0.15s ease;
-      font-family: 'JetBrains Mono', sans-serif;
+      font-family: var(--font-mono);
     }
 
     .chip-btn:hover {
-      background: rgba(59, 130, 246, 0.15);
+      background: var(--accent-blue-soft);
       border-color: var(--accent-blue);
-      color: #93c5fd;
+      color: var(--accent-blue);
       transform: translateY(-1px);
     }
 
     .chip-btn.reset {
-      background: rgba(244, 63, 94, 0.1);
-      border-color: rgba(244, 63, 94, 0.3);
-      color: #fca5a5;
-    }
-
-    .chip-btn.reset:hover {
-      background: rgba(244, 63, 94, 0.25);
-      color: white;
-      border-color: var(--accent-rose);
-    }
-
-    .chip-btn.minus {
-      color: #fda4af;
-      border-color: rgba(244, 63, 94, 0.2);
+      background: var(--accent-rose-soft);
+      border-color: rgba(225, 29, 72, 0.25);
+      color: var(--accent-rose);
     }
 
     /* Sub Fields (Debt & Options) */
     .sub-fields-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.1fr 1fr;
       gap: 1rem;
       margin-bottom: 1.1rem;
     }
@@ -602,7 +989,7 @@
     }
 
     .sub-field-box {
-      background: rgba(255, 255, 255, 0.02);
+      background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
       padding: 0.85rem 1rem;
@@ -617,14 +1004,14 @@
 
     .sub-field-header .label {
       font-size: 0.78rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-muted);
     }
 
     .sub-field-header .desc {
       font-size: 0.75rem;
       color: var(--text-sub);
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
     }
 
     .sub-input-wrap {
@@ -635,12 +1022,12 @@
 
     .sub-input {
       width: 100%;
-      background: var(--bg-elevated);
+      background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       color: var(--text-main);
       font-size: 0.95rem;
       font-weight: 700;
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
       padding: 0.45rem 2rem 0.45rem 0.65rem;
       border-radius: 6px;
       outline: none;
@@ -651,22 +1038,38 @@
       border-color: var(--accent-blue);
     }
 
-    /* Pill-Style Toggle Options */
+    .debt-warning-notice {
+      display: none;
+      font-size: 0.72rem;
+      color: var(--accent-amber);
+      margin-top: 0.4rem;
+      line-height: 1.35;
+      background: var(--accent-amber-soft);
+      padding: 0.35rem 0.55rem;
+      border-radius: 4px;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
+    .debt-warning-notice.visible {
+      display: block;
+    }
+
+    /* Option Pill Toggles */
     .options-pill-bar {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+      flex-direction: column;
+      gap: 0.45rem;
     }
 
     .pill-toggle {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      background: rgba(255, 255, 255, 0.03);
+      justify-content: space-between;
+      background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
-      color: var(--text-muted);
-      padding: 0.4rem 0.8rem;
-      border-radius: 999px;
+      color: var(--text-sub);
+      padding: 0.45rem 0.75rem;
+      border-radius: 8px;
       font-size: 0.78rem;
       font-weight: 600;
       cursor: pointer;
@@ -675,29 +1078,54 @@
     }
 
     .pill-toggle:hover {
-      border-color: rgba(255, 255, 255, 0.2);
-      color: var(--text-sub);
+      border-color: var(--border-hover);
+      color: var(--text-main);
     }
 
     .pill-toggle.active {
-      background: rgba(59, 130, 246, 0.15);
+      background: var(--accent-blue-soft);
       border-color: var(--accent-blue);
-      color: #bfdbfe;
-      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+      color: var(--accent-blue);
+      font-weight: 700;
+    }
+
+    .pill-toggle .pill-check {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 1px solid var(--border-hover);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      transition: all 0.15s;
+    }
+
+    .pill-toggle.active .pill-check {
+      background: var(--accent-blue);
+      border-color: var(--accent-blue);
+      color: white;
     }
 
     .card-footer {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
       padding-top: 0.85rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .card-footer-info {
+      font-size: 0.74rem;
+      color: var(--text-muted);
     }
 
     .btn-inspect {
-      background: rgba(59, 130, 246, 0.1);
+      background: var(--accent-blue-soft);
       border: 1px solid rgba(59, 130, 246, 0.3);
-      color: #93c5fd;
+      color: var(--accent-blue);
       padding: 0.4rem 1rem;
       border-radius: 6px;
       font-size: 0.82rem;
@@ -709,31 +1137,54 @@
     .btn-inspect:hover, .event-card.selected .btn-inspect {
       background: var(--accent-blue);
       color: white;
-      box-shadow: 0 2px 10px rgba(59, 130, 246, 0.4);
+      box-shadow: 0 2px 10px rgba(59, 130, 246, 0.35);
     }
 
-    /* Right: Digital Tax Receipt (Invoice Style) */
+    /* Right: Digital Tax Statement Panel */
     .receipt-panel {
       position: sticky;
       top: 1.5rem;
-      background: linear-gradient(180deg, #101522 0%, #0d111a 100%);
-      border: 1px solid rgba(59, 130, 246, 0.25);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
       padding: 1.75rem;
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px rgba(59, 130, 246, 0.1);
+      box-shadow: var(--shadow-card);
+    }
+
+    .receipt-tabs {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .receipt-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .receipt-tab-btn.active {
+      background: var(--accent-blue-soft);
+      color: var(--accent-blue);
     }
 
     .receipt-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 1rem;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
       margin-bottom: 1.25rem;
     }
 
     .receipt-top .title {
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 800;
       color: var(--text-main);
       display: flex;
@@ -741,28 +1192,22 @@
       gap: 0.5rem;
     }
 
-    .receipt-top .title svg {
-      stroke: var(--accent-blue);
-      width: 20px;
-      height: 20px;
-    }
-
     .receipt-target-pill {
       font-size: 0.78rem;
-      background: rgba(59, 130, 246, 0.15);
-      color: #93c5fd;
+      background: var(--accent-blue-soft);
+      color: var(--accent-blue);
       font-weight: 700;
       padding: 0.25rem 0.65rem;
       border-radius: 6px;
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
     }
 
-    /* Big Tax Hero Display */
+    /* Hero Amount Display */
     .receipt-hero {
       text-align: center;
       padding: 1.5rem 1rem;
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       margin-bottom: 1.5rem;
     }
@@ -771,7 +1216,7 @@
       font-size: 0.8rem;
       font-weight: 700;
       color: var(--text-muted);
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       margin-bottom: 0.25rem;
     }
@@ -779,8 +1224,8 @@
     .receipt-hero .amount {
       font-size: 2.6rem;
       font-weight: 900;
-      font-family: 'JetBrains Mono', monospace;
-      color: #38bdf8;
+      font-family: var(--font-mono);
+      color: var(--accent-blue);
       letter-spacing: -0.03em;
     }
 
@@ -795,7 +1240,14 @@
       margin-top: 0.25rem;
     }
 
-    /* Breakdown Table */
+    .receipt-hero .effective-rate {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+      font-weight: 600;
+    }
+
+    /* Statement Breakdown Table */
     .statement-table {
       width: 100%;
       border-collapse: collapse;
@@ -803,7 +1255,7 @@
     }
 
     .statement-table tr {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .statement-table td {
@@ -813,7 +1265,7 @@
 
     .statement-table .item-name {
       color: var(--text-sub);
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .statement-table .item-law {
@@ -825,7 +1277,7 @@
 
     .statement-table .item-val {
       text-align: right;
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
       font-weight: 700;
       color: var(--text-main);
     }
@@ -835,13 +1287,13 @@
     }
 
     .statement-table .highlight {
-      color: #38bdf8;
+      color: var(--accent-blue);
       font-size: 1rem;
     }
 
-    /* Zero tax & installment alerts */
+    /* Alert Banners */
     .alert-banner {
-      background: rgba(16, 185, 129, 0.08);
+      background: var(--accent-emerald-soft);
       border: 1px solid rgba(16, 185, 129, 0.3);
       border-radius: var(--radius-sm);
       padding: 1rem;
@@ -860,12 +1312,12 @@
 
     .alert-banner p {
       font-size: 0.78rem;
-      color: #a7f3d0;
+      color: var(--text-sub);
       line-height: 1.45;
     }
 
     .installment-alert {
-      background: rgba(245, 158, 11, 0.08);
+      background: var(--accent-amber-soft);
       border: 1px solid rgba(245, 158, 11, 0.3);
       border-radius: var(--radius-sm);
       padding: 0.9rem;
@@ -894,22 +1346,23 @@
       border-top: 1px solid var(--border-subtle);
     }
 
+    /* Toast Notification */
     .toast {
       position: fixed;
       left: 50%;
-      bottom: 1.5rem;
+      bottom: 2rem;
       transform: translate(-50%, 1rem);
       opacity: 0;
       pointer-events: none;
-      z-index: 10;
-      background: #e2e8f0;
-      color: #0f172a;
+      z-index: 1000;
+      background: var(--text-main);
+      color: var(--bg-base);
       border-radius: 999px;
-      padding: 0.65rem 1rem;
-      font-size: 0.82rem;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.85rem;
       font-weight: 700;
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      transition: opacity .2s ease, transform .2s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      transition: opacity 0.2s ease, transform 0.2s ease;
     }
 
     .toast.visible {
@@ -917,642 +1370,321 @@
       transform: translate(-50%, 0);
     }
 
-    @media print {
-      body { background: white; color: #111827; padding: 0; }
-      .header-tools, .ledger-header, .btn-delete-card, .chips-row, .card-footer,
-      .btn-inline-clear, .installment-alert, .alert-banner { display: none !important; }
-      .container { max-width: none; }
-      .main-grid { display: block; }
-      .receipt-panel, .event-card, .bento-card { color: #111827; background: white; box-shadow: none; border-color: #d1d5db; }
-      .receipt-panel { margin-top: 1rem; }
-      .event-stream { gap: .75rem; }
-      .event-card:not(.selected) { display: none; }
-      .item-name, .item-law, .kpi-sub { color: #4b5563 !important; }
-    }
-
-    @media (max-width: 700px) {
-      body { padding: 1rem 0.75rem; }
-      header { align-items: stretch; }
-      .header-tools { justify-content: flex-start; }
-      .profile-switch { flex-wrap: wrap; }
-      .profile-switch .label { width: 100%; padding-left: 0; }
-      .hero-input { font-size: 1.5rem; }
-      .receipt-hero .amount { font-size: 2rem; }
-      .card-top { align-items: flex-start; gap: .75rem; flex-direction: column; }
-      .card-top-right { width: 100%; justify-content: space-between; }
-    }
-
-    /* Liquid Glass visual system */
-    :root {
-      --bg-base: #070b16;
-      --bg-surface: rgba(17, 25, 43, 0.58);
-      --bg-elevated: rgba(25, 36, 61, 0.72);
-      --bg-card: rgba(18, 28, 49, 0.62);
-      --bg-card-hover: rgba(29, 43, 72, 0.78);
-      --border-subtle: rgba(198, 220, 255, 0.12);
-      --border-hover: rgba(198, 220, 255, 0.28);
-      --text-main: #f5f8ff;
-      --text-sub: #a8b6cf;
-      --text-muted: #71819f;
-      --glass-blur: 22px;
-      --glass-shadow: 0 24px 70px rgba(1, 7, 20, 0.42), inset 0 1px 0 rgba(255,255,255,.08);
-    }
-
-    body {
-      position: relative;
-      overflow-x: hidden;
-      background:
-        radial-gradient(ellipse 55% 38% at 8% 0%, rgba(74, 118, 255, .23), transparent 68%),
-        radial-gradient(ellipse 45% 38% at 95% 12%, rgba(22, 196, 255, .14), transparent 70%),
-        radial-gradient(ellipse 52% 42% at 80% 100%, rgba(132, 74, 255, .16), transparent 70%),
-        var(--bg-base);
-    }
-
-    body::before,
-    body::after {
-      content: "";
+    /* Modal / Drawer */
+    .modal-backdrop {
       position: fixed;
-      z-index: -1;
-      pointer-events: none;
-      border-radius: 50%;
-      filter: blur(2px);
-      opacity: .55;
-    }
-
-    body::before {
-      width: 28rem;
-      height: 28rem;
-      top: 28%;
-      left: -14rem;
-      background: radial-gradient(circle, rgba(63, 140, 255, .16), transparent 68%);
-    }
-
-    body::after {
-      width: 34rem;
-      height: 34rem;
-      right: -16rem;
-      top: 42%;
-      background: radial-gradient(circle, rgba(166, 91, 255, .14), transparent 68%);
-    }
-
-    header {
-      border-bottom-color: rgba(198, 220, 255, .14);
-    }
-
-    .header-badge,
-    .profile-switch,
-    .bento-card,
-    .event-card,
-    .receipt-panel,
-    .utility-btn,
-    .sub-field-box,
-    .amount-hero-section {
-      background: linear-gradient(145deg, rgba(30, 45, 75, .62), rgba(12, 19, 36, .58));
-      border-color: rgba(198, 220, 255, .14);
-      box-shadow: var(--glass-shadow);
-      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(145%);
-      backdrop-filter: blur(var(--glass-blur)) saturate(145%);
-    }
-
-    .bento-card,
-    .event-card,
-    .receipt-panel {
-      isolation: isolate;
-    }
-
-    .bento-card::before,
-    .event-card::before,
-    .receipt-panel::before {
-      content: "";
-      position: absolute;
       inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      border-radius: inherit;
-      background: linear-gradient(120deg, rgba(255,255,255,.09), transparent 28%, transparent 72%, rgba(126, 169, 255, .05));
-      mask-image: linear-gradient(to bottom, #000, transparent 72%);
-    }
-
-    .bento-card:hover,
-    .event-card:hover,
-    .utility-btn:hover {
-      border-color: rgba(155, 196, 255, .34);
-      box-shadow: 0 28px 80px rgba(5, 12, 30, .48), inset 0 1px 0 rgba(255,255,255,.12);
-    }
-
-    .event-card.selected {
-      border-color: rgba(105, 178, 255, .72);
-      background: linear-gradient(145deg, rgba(35, 64, 108, .72), rgba(12, 24, 49, .7));
-      box-shadow: 0 24px 70px rgba(38, 111, 225, .22), 0 0 0 1px rgba(105,178,255,.16), inset 0 1px 0 rgba(255,255,255,.13);
-    }
-
-    .btn-add-event,
-    .btn-toggle-age.active {
-      background: linear-gradient(135deg, #4f9dff, #6c62f5 58%, #a855f7);
-      box-shadow: 0 10px 30px rgba(73, 115, 255, .28), inset 0 1px 0 rgba(255,255,255,.25);
-    }
-
-    .btn-add-event:hover,
-    .btn-toggle-age.active:hover {
-      filter: brightness(1.12) saturate(1.08);
-      box-shadow: 0 14px 36px rgba(73, 115, 255, .42), inset 0 1px 0 rgba(255,255,255,.3);
-    }
-
-    .receipt-hero {
-      background:
-        radial-gradient(circle at 50% -40%, rgba(77, 170, 255, .2), transparent 60%),
-        rgba(4, 10, 24, .42);
-      border-color: rgba(159, 204, 255, .14);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
-    }
-
-    .receipt-hero .amount {
-      background: linear-gradient(110deg, #e6f4ff, #73c9ff 44%, #a78bfa);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 8px 22px rgba(76, 169, 255, .2));
-    }
-
-    .receipt-hero.zero-tax .amount {
-      background: linear-gradient(110deg, #d6fff0, #5eead4, #8bffb1);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-input:focus,
-    .sub-input:focus,
-    .date-input-wrap input[type="date"]:focus,
-    .donor-select:focus {
-      border-color: rgba(107, 190, 255, .78);
-      box-shadow: 0 0 0 3px rgba(70, 151, 255, .15), 0 0 24px rgba(70, 151, 255, .1);
-    }
-
-    .progress-bar-fill {
-      background: linear-gradient(90deg, #57e6b2, #54c7ff 48%, #9c7cff);
-      box-shadow: 0 0 16px rgba(84, 199, 255, .38);
-    }
-
-    .chip-btn,
-    .pill-toggle,
-    .btn-inspect {
-      border-color: rgba(198, 220, 255, .14);
-      background: rgba(255,255,255,.045);
-    }
-
-    .chip-btn:hover,
-    .pill-toggle:hover,
-    .pill-toggle.active {
-      background: linear-gradient(135deg, rgba(78, 163, 255, .2), rgba(138, 92, 255, .18));
-      border-color: rgba(117, 190, 255, .52);
-      box-shadow: 0 8px 22px rgba(48, 107, 212, .16);
-    }
-
-    :focus-visible {
-      outline: 2px solid #7dd3fc;
-      outline-offset: 3px;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
-        animation-duration: .01ms !important;
-      }
-    }
-
-    /* Calm, product-grade light theme */
-    :root {
-      color-scheme: light;
-      --bg-base: #f5f5f7;
-      --bg-surface: rgba(255, 255, 255, .82);
-      --bg-elevated: #f8f8fa;
-      --bg-card: rgba(255, 255, 255, .9);
-      --bg-card-hover: #ffffff;
-      --border-subtle: rgba(0, 0, 0, .08);
-      --border-hover: rgba(0, 0, 0, .16);
-      --text-main: #1d1d1f;
-      --text-sub: #6e6e73;
-      --text-muted: #86868b;
-      --accent-blue: #0071e3;
-      --accent-indigo: #5856d6;
-      --accent-cyan: #007aff;
-      --accent-emerald: #248a3d;
-      --accent-amber: #b06b00;
-      --accent-rose: #d70015;
-      --shadow-card: 0 1px 2px rgba(0,0,0,.04), 0 8px 28px rgba(0,0,0,.05);
-      --glass-blur: 18px;
-    }
-
-    body {
-      background: var(--bg-base);
-      background-image:
-        radial-gradient(ellipse 75% 45% at 50% -20%, rgba(255,255,255,.95), transparent 70%);
-      color: var(--text-main);
-      padding-top: 3.5rem;
-    }
-
-    body::before,
-    body::after {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
       display: none;
-    }
-
-    .container {
-      max-width: 1240px;
-    }
-
-    header {
       align-items: center;
-      margin-bottom: 2.75rem;
-      padding-bottom: 1.75rem;
-      border-bottom-color: rgba(0,0,0,.1);
+      justify-content: center;
+      padding: 1.5rem;
     }
 
-    .header-left h1 {
-      color: #1d1d1f;
-      background: none;
-      -webkit-text-fill-color: initial;
-      font-size: clamp(1.8rem, 3vw, 2.35rem);
-      letter-spacing: -.045em;
+    .modal-backdrop.open {
+      display: flex;
     }
 
-    .header-left p {
-      color: var(--text-sub);
-      letter-spacing: -.01em;
+    .modal-container {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 820px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5);
+      animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .header-badge {
-      background: #e8f2ff;
-      border-color: #cfe4ff;
-      color: #0066cc;
+    @keyframes modalSlideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
-    .profile-switch,
-    .bento-card,
-    .event-card,
-    .receipt-panel,
-    .utility-btn,
-    .sub-field-box,
-    .amount-hero-section {
-      background: rgba(255,255,255,.86);
-      border-color: var(--border-subtle);
-      box-shadow: var(--shadow-card);
-      -webkit-backdrop-filter: blur(var(--glass-blur));
-      backdrop-filter: blur(var(--glass-blur));
+    .modal-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .bento-card::before,
-    .event-card::before,
-    .receipt-panel::before {
-      display: none;
+    .modal-header h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
-    .bento-card:hover,
-    .event-card:hover,
-    .utility-btn:hover {
-      border-color: var(--border-hover);
-      box-shadow: 0 2px 4px rgba(0,0,0,.04), 0 12px 32px rgba(0,0,0,.08);
-      transform: translateY(-1px);
-    }
-
-    .bento-card .kpi-label,
-    .amount-hero-header .label,
-    .sub-field-header .label {
+    .modal-close-btn {
+      background: transparent;
+      border: none;
       color: var(--text-muted);
-      letter-spacing: .01em;
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      transition: all 0.15s;
     }
 
-    .bento-card .kpi-val {
-      color: var(--text-main) !important;
-    }
-
-    .bento-card .kpi-val,
-    .hero-input,
-    .receipt-hero .amount,
-    .statement-table .item-val {
-      font-family: inherit;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .bento-card:nth-child(2) .kpi-val { color: #0071e3 !important; }
-    .bento-card:nth-child(3) .kpi-val { color: #248a3d !important; }
-    .bento-card:nth-child(4) .kpi-val { color: #b06b00 !important; }
-
-    .event-card.selected {
-      border-color: #0071e3;
-      background: #ffffff;
-      box-shadow: 0 0 0 1px rgba(0,113,227,.12), 0 12px 36px rgba(0,0,0,.08);
-    }
-
-    .badge-order {
-      background: #f0f6ff;
-      border-color: #d8e9ff;
-      color: #0066cc;
-    }
-
-    .event-card.selected .badge-order {
-      background: #0071e3;
-      color: #fff;
-    }
-
-    .date-input-wrap input[type="date"],
-    .donor-select,
-    .sub-input {
-      background: #f7f7f8;
-      border-color: rgba(0,0,0,.12);
+    .modal-close-btn:hover {
+      background: var(--bg-elevated);
       color: var(--text-main);
     }
 
-    .amount-hero-section {
-      background: #f7f7f8;
-      box-shadow: none;
-    }
-
-    .amount-hero-section:focus-within {
-      border-color: #0071e3;
-      box-shadow: 0 0 0 4px rgba(0,113,227,.1);
-    }
-
-    .hero-input {
-      color: var(--text-main);
-    }
-
-    .receipt-panel {
-      background: rgba(255,255,255,.94);
-    }
-
-    .receipt-hero {
-      background: #f5f5f7;
-      border-color: rgba(0,0,0,.06);
-      box-shadow: none;
-    }
-
-    .receipt-hero .amount,
-    .receipt-hero.zero-tax .amount {
-      background: none;
-      color: #1d1d1f;
-      -webkit-text-fill-color: initial;
-      filter: none;
-    }
-
-    .receipt-hero.zero-tax .amount {
-      color: #248a3d;
-    }
-
-    .statement-table tr {
-      border-bottom-color: rgba(0,0,0,.07);
-    }
-
-    .statement-table .item-name,
-    .statement-table .item-law {
+    .modal-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      font-size: 0.9rem;
       color: var(--text-sub);
+      line-height: 1.65;
     }
 
-    .statement-table .item-val {
+    .law-section {
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px dashed var(--border-subtle);
+    }
+
+    .law-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .law-section h4 {
+      font-size: 1.05rem;
+      font-weight: 800;
       color: var(--text-main);
+      margin-bottom: 0.45rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
-    .statement-table .highlight {
-      color: #0071e3;
+    .law-badge {
+      background: var(--accent-blue-soft);
+      color: var(--accent-blue);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
     }
 
-    .btn-add-event,
-    .btn-toggle-age.active {
-      background: #0071e3;
-      box-shadow: 0 4px 12px rgba(0,113,227,.2);
+    .law-box {
+      background: var(--bg-elevated);
+      border-left: 3px solid var(--accent-blue);
+      padding: 0.75rem 1rem;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      margin: 0.6rem 0;
     }
 
-    .btn-add-event:hover,
-    .btn-toggle-age.active:hover {
-      background: #0077ed;
-      box-shadow: 0 6px 16px rgba(0,113,227,.26);
-      filter: none;
+    .precedent-box {
+      background: var(--accent-purple-soft);
+      border-left: 3px solid var(--accent-purple);
+      padding: 0.75rem 1rem;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      margin: 0.6rem 0;
     }
 
-    .utility-btn {
-      color: #424245;
-    }
-
-    .chip-btn,
-    .pill-toggle,
-    .btn-inspect {
-      background: #f5f5f7;
-      border-color: rgba(0,0,0,.09);
-      color: #424245;
-    }
-
-    .chip-btn:hover,
-    .pill-toggle:hover,
-    .pill-toggle.active {
-      background: #e8f2ff;
-      border-color: #b8d8ff;
-      color: #0066cc;
-      box-shadow: none;
-    }
-
-    .alert-banner {
-      background: #f0faf2;
-      border-color: #c8e8cf;
-    }
-
-    .alert-banner .title {
-      color: #237a3b;
-    }
-
-    .alert-banner p {
-      color: #356b45;
-    }
-
-    .installment-alert {
-      background: #fff8e8;
-      border-color: #f1d89a;
-    }
-
-    .disclaimer {
-      color: #86868b;
-    }
-
-    :focus-visible {
-      outline-color: #0071e3;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        color-scheme: dark;
-        --bg-base: #1d1d1f;
-        --bg-surface: rgba(42, 42, 45, .88);
-        --bg-elevated: #2c2c2e;
-        --bg-card: rgba(44, 44, 46, .92);
-        --bg-card-hover: #363638;
-        --border-subtle: rgba(255,255,255,.1);
-        --border-hover: rgba(255,255,255,.2);
-        --text-main: #f5f5f7;
-        --text-sub: #c7c7cc;
-        --text-muted: #a1a1a6;
-        --accent-blue: #5aa9ff;
-        --accent-cyan: #64b5ff;
-        --accent-emerald: #5bd67a;
-        --accent-amber: #ffbf5b;
-        --accent-rose: #ff7b86;
-        --shadow-card: 0 1px 2px rgba(0,0,0,.2), 0 10px 28px rgba(0,0,0,.16);
-      }
-
+    /* Print Styles */
+    @media print {
       body {
-        background: #1d1d1f;
-        background-image: radial-gradient(ellipse 75% 45% at 50% -20%, rgba(73,73,78,.28), transparent 70%);
+        background: white !important;
+        color: #0f172a !important;
+        padding: 0 !important;
       }
-
-      header { border-bottom-color: rgba(255,255,255,.12); }
-      .header-left h1 { color: #f5f5f7; }
-      .header-badge { background: #1f354e; border-color: #294d73; color: #8fc7ff; }
-
-      .profile-switch,
-      .bento-card,
-      .event-card,
-      .receipt-panel,
-      .utility-btn,
-      .sub-field-box,
-      .amount-hero-section {
-        background: rgba(44,44,46,.9);
-        border-color: var(--border-subtle);
-        box-shadow: var(--shadow-card);
+      .header-tools, .ledger-header, .btn-delete-card, .chips-row, .card-footer,
+      .btn-theme-toggle, .btn-action, .receipt-tabs, .modal-backdrop, .toast {
+        display: none !important;
       }
-
-      .event-card.selected {
-        background: #303033;
-        border-color: #4ea1ff;
-        box-shadow: 0 0 0 1px rgba(78,161,255,.18), 0 12px 36px rgba(0,0,0,.2);
+      .container { max-width: none !important; }
+      .main-grid { display: block !important; }
+      .bento-bar { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 0.5rem !important; }
+      .bento-card, .event-card, .receipt-panel {
+        background: white !important;
+        border: 1px solid #cbd5e1 !important;
+        box-shadow: none !important;
+        color: #0f172a !important;
       }
-
-      .badge-order { background: #263b52; border-color: #355a82; color: #9dccff; }
-      .event-card.selected .badge-order { background: #0071e3; color: #fff; }
-      .date-input-wrap input[type="date"],
-      .donor-select,
-      .sub-input,
-      .amount-hero-section { background: #2c2c2e; color: var(--text-main); border-color: rgba(255,255,255,.14); }
-      .receipt-panel { background: rgba(44,44,46,.96); }
-      .receipt-hero { background: #2c2c2e; border-color: rgba(255,255,255,.08); }
-      .receipt-hero .amount { color: #f5f5f7; }
-      .receipt-hero.zero-tax .amount { color: #63d471; }
-      .statement-table tr { border-bottom-color: rgba(255,255,255,.09); }
-      .statement-table .item-val { color: #f5f5f7; }
-      .header-left p,
-      .profile-switch .label,
-      .bento-card .kpi-label,
-      .bento-card .kpi-sub,
-      .sub-field-header .label,
-      .sub-field-header .desc,
-      .amount-hero-header .label,
-      .statement-table .item-name,
-      .statement-table .item-law,
-      .disclaimer,
-      .save-status { color: #c7c7cc; }
-      .bento-card .kpi-val { color: #f5f5f7 !important; }
-      .bento-card:nth-child(2) .kpi-val { color: #64b5ff !important; }
-      .bento-card:nth-child(3) .kpi-val { color: #5bd67a !important; }
-      .bento-card:nth-child(4) .kpi-val { color: #ffbf5b !important; }
-      .bento-card:nth-child(3) .kpi-label span,
-      #kpiParentPercent { color: #5bd67a !important; }
-      .statement-table .highlight { color: #64b5ff; }
-      .statement-table .negative { color: #ff7b86; }
-      .statement-table .item-val[style*="accent-amber"] { color: #ffbf5b !important; }
-      .receipt-target-pill,
-      .badge-tax-status.zero { color: #8be7a2; }
-      .receipt-target-pill { background: #284b70; }
-      .hero-input,
-      .sub-input,
-      .date-input-wrap input[type="date"],
-      .donor-select { color: #f5f5f7; }
-      .utility-btn { color: #f5f5f7; }
-      .chip-btn,
-      .pill-toggle,
-      .btn-inspect { background: #2c2c2e; border-color: rgba(255,255,255,.12); color: #f5f5f7; }
-      .chip-btn:hover,
-      .pill-toggle:hover,
-      .pill-toggle.active { background: #263b52; border-color: #4d8bc7; color: #9dccff; }
-      .alert-banner { background: #1e3825; border-color: #356b42; }
-      .alert-banner .title { color: #8be7a2; }
-      .alert-banner p { color: #c5f5d0; }
-      .installment-alert { background: #3b301d; border-color: #75602e; }
-      .disclaimer { color: #8e8e93; }
+      .event-card:not(.selected) { display: none !important; }
+      .receipt-panel { position: static !important; margin-top: 1.5rem !important; }
+      .statement-table td { padding: 0.5rem 0.1rem !important; }
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <!-- Top Brand Header -->
+  <!-- Header -->
   <header>
     <div class="header-left">
-      <div class="header-badge">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-        </svg>
-        상속세 및 증여세법 제47조(10년 합산) & 제58조(기납부공제) 탑재
+      <div class="header-tag-row">
+        <span class="header-pill">상증세법 제47조·제58조 탑재</span>
+        <span class="header-pill gold">대법원 판례 기준 동일인 안분</span>
+        <span class="header-pill emerald">2024~2026 혼인·출산 1억 공제</span>
       </div>
-      <h1>증여세 정밀 시뮬레이터</h1>
-      <p>단일 원장 타임라인에서 다건의 증여를 등록하고, 10년 합산 누진세율 및 기납부세액공제를 실시간 정산합니다.</p>
+      <h1>
+        증여세 정밀 시뮬레이터
+        <span class="header-badge-pro">PRO</span>
+      </h1>
+      <p>
+        실제 상속세 및 증여세법 조문과 대법원 판례(부모 합산 vs 조부모 분리, 제58조 기납부공제 한도 산식)에 기반하여 10년 합산세액을 오차 없이 정밀하게 산출합니다.
+      </p>
     </div>
 
-    <!-- Recipient Profile Age Switch -->
+    <!-- Tools -->
     <div class="header-tools">
       <div class="profile-switch">
         <span class="label">수증자:</span>
         <button type="button" class="btn-toggle-age active" id="btnAdult" onclick="setRecipientAge('adult')">성인 (10년 5천만 공제)</button>
         <button type="button" class="btn-toggle-age" id="btnMinor" onclick="setRecipientAge('minor')">미성년자 (2천만 공제)</button>
       </div>
-      <button type="button" class="utility-btn" onclick="printStatement()">산출서 인쇄</button>
-      <button type="button" class="utility-btn" onclick="exportData()">데이터 저장</button>
-      <span class="save-status" id="saveStatus">자동 저장 대기</span>
+
+      <button type="button" class="btn-action" onclick="openLawModal()">
+        <span>📘</span> 법령·판례 해설
+      </button>
+
+      <button type="button" class="btn-action" onclick="openOverseasModal()">
+        <span>🌐</span> IBKR·자금출처 가이드
+      </button>
+
+      <button type="button" class="btn-action" onclick="copySummaryText()">
+        <span>📋</span> 요약 복사
+      </button>
+
+      <button type="button" class="btn-action highlight" onclick="window.print()">
+        <span>🖨️</span> 산출서 인쇄
+      </button>
+
+      <button type="button" class="btn-theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" title="화면 테마 변경">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
     </div>
   </header>
 
-  <!-- Bento Grid KPIs -->
+  <!-- Bento KPIs -->
   <div class="bento-bar">
     <div class="bento-card">
-      <div class="kpi-label">등록 증여 횟수</div>
+      <div class="kpi-label">등록 증여 총 건수</div>
       <div class="kpi-val" id="kpiTotalCount">0건</div>
-      <div class="kpi-sub">연대기별 자동 합산</div>
+      <div class="kpi-sub" id="kpiDateRange">원장 타임라인 자동 연산</div>
     </div>
     <div class="bento-card">
       <div class="kpi-label">총 증여 누적액</div>
-      <div class="kpi-val" style="color:#38bdf8;" id="kpiTotalGift">0원</div>
+      <div class="kpi-val" style="color:var(--accent-blue);" id="kpiTotalGift">0원</div>
       <div class="kpi-sub" id="kpiTotalGiftSub">0원</div>
     </div>
     <div class="bento-card">
       <div class="kpi-label">
-        <span>부모 10년 비과세 잔여 한도</span>
-        <span style="font-size:0.7rem; color:var(--accent-emerald);" id="kpiParentPercent">100%</span>
+        <span>직계존속 10년 비과세 잔여 한도</span>
+        <span style="font-size:0.75rem; color:var(--accent-emerald);" id="kpiParentPercent">100% 잔여</span>
       </div>
       <div class="kpi-val" style="color:var(--accent-emerald);" id="kpiParentRemain">5,000만 원</div>
       <div class="progress-bar-bg">
         <div class="progress-bar-fill" id="parentProgressBar" style="width: 0%;"></div>
       </div>
-      <div class="kpi-sub" id="kpiParentUsed" style="margin-top:0.4rem;">기사용: 0원 / 한도 5,000만 원</div>
+      <div class="kpi-sub" id="kpiParentUsed">기사용: 0원 / 총 한도 5,000만 원</div>
     </div>
     <div class="bento-card">
-      <div class="kpi-label">총 납부(예정) 세액 합계</div>
+      <div class="kpi-label">
+        <span>총 납부세액 합계</span>
+        <span style="font-size:0.75rem; color:var(--accent-amber);" id="kpiEffectiveRate">실효 0.0%</span>
+      </div>
       <div class="kpi-val" style="color:var(--accent-amber);" id="kpiTotalTax">0원</div>
-      <div class="kpi-sub">전체 건별 세액 총합</div>
+      <div class="kpi-sub">자진신고 3% 공제 반영 후</div>
     </div>
   </div>
 
   <!-- Main 2-Column Grid -->
   <div class="main-grid">
-    <!-- Left: Gift Ledger Stream -->
+    <!-- Left: Events Ledger Stream -->
     <div>
+      <!-- Fixed Donors Quick Bar -->
+      <div class="donor-hub-bar">
+        <span class="donor-hub-title">
+          <span>👥</span> 고정 증여자 퀵 추가:
+        </span>
+        <button type="button" class="hub-chip-btn" onclick="quickAddForDonor('parent_father')">
+          <span>👨</span> 부 (아버지) 증여
+        </button>
+        <button type="button" class="hub-chip-btn" onclick="quickAddForDonor('parent_mother')">
+          <span>👩</span> 모 (어머니) 증여
+        </button>
+        <button type="button" class="hub-chip-btn" onclick="quickAddForDonor('grandparent_paternal')">
+          <span>👴</span> 친조부모 증여
+        </button>
+        <button type="button" class="hub-chip-btn" onclick="quickAddForDonor('grandparent_maternal')">
+          <span>👵</span> 외조부모 증여
+        </button>
+        <button type="button" class="hub-chip-btn" onclick="quickAddForDonor('spouse')">
+          <span>💍</span> 배우자 증여
+        </button>
+        <button type="button" class="hub-chip-btn planner" onclick="openSplitPlannerModal()">
+          <span>⚡</span> 분할 증여 자동 플래너
+        </button>
+      </div>
+
       <div class="ledger-header">
-        <div class="ledger-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-          </svg>
-          증여 타임라인 원장
+        <div class="ledger-title-wrap">
+          <div class="ledger-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            증여 원장
+          </div>
+          <!-- View Mode Toggle -->
+          <div class="sort-control-group">
+            <span class="sort-label">보기 방식:</span>
+            <div class="sort-segmented">
+              <button type="button" class="sort-btn active" id="btnViewByDonor" onclick="setLedgerViewMode('by_donor')" title="증여자(부/모/조부모)별로 묶어 분할 수령 회차를 한눈에 관리합니다.">
+                <span>👤</span> 증여자별 분할 관리
+              </button>
+              <button type="button" class="sort-btn" id="btnViewTimeline" onclick="setLedgerViewMode('timeline')" title="전체 증여 내역을 시간순으로 펼쳐봅니다.">
+                <span>⏱️</span> 시간순 타임라인
+              </button>
+            </div>
+          </div>
+          <div class="sort-control-group" id="timelineSortGroup" style="display:none;">
+            <span class="sort-label">정렬:</span>
+            <div class="sort-segmented">
+              <button type="button" class="sort-btn active" id="btnSortDesc" onclick="setListSortOrder('desc')">
+                <span>⬇️</span> 최신순
+              </button>
+              <button type="button" class="sort-btn" id="btnSortAsc" onclick="setListSortOrder('asc')">
+                <span>⬆️</span> 과거순
+              </button>
+            </div>
+          </div>
         </div>
-        <div style="display:flex; gap:0.5rem;">
-          <button type="button" class="chip-btn" onclick="resetToSample()">샘플 불러오기</button>
-          <button type="button" class="chip-btn reset" onclick="clearAllEvents()">비우기</button>
-          <button type="button" class="btn-add-event" onclick="addNewGiftEvent()">
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button type="button" class="btn-action" onclick="loadSampleScenario('parents')">샘플: 부모 증여</button>
+          <button type="button" class="btn-action" onclick="loadSampleScenario('grandparent')">샘플: 조부모 증여</button>
+          <button type="button" class="btn-action" onclick="loadSampleScenario('marriage')">샘플: 혼인공제</button>
+          <button type="button" class="btn-action highlight" onclick="addNewGiftEvent()">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -1564,165 +1696,375 @@
 
       <!-- Event Cards Stream -->
       <div class="event-stream" id="eventListContainer">
-        <!-- Rendered by JavaScript -->
+        <!-- Rendered by JS -->
       </div>
     </div>
 
-    <!-- Right: Digital Tax Receipt Statement -->
+    <!-- Right: Digital Tax Statement -->
     <div>
       <div class="receipt-panel">
+        <div class="receipt-tabs">
+          <button type="button" class="receipt-tab-btn active" id="tabBtnSimple" onclick="switchReceiptTab('simple')">간편 산출 영수증</button>
+          <button type="button" class="receipt-tab-btn" id="tabBtnNts" onclick="switchReceiptTab('nts')">국세청 신고서 양식(별지 제9호)</button>
+        </div>
+
         <div class="receipt-top">
           <div class="title">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <polyline points="14 2 14 8 20 8"/>
-              <line x1="16" y1="13" x2="8" y2="13"/>
-              <line x1="16" y1="17" x2="8" y2="17"/>
-              <polyline points="10 9 9 9 8 9"/>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
             </svg>
-            증여세 산출 영수증
+            <span id="receiptTitleText">증여세 산출 명세서</span>
           </div>
           <span class="receipt-target-pill" id="dispReceiptTarget">#1차 증여</span>
         </div>
 
-        <!-- Big Hero Tax Amount -->
+        <!-- Hero Tax Display -->
         <div class="receipt-hero" id="receiptHeroBox">
-          <div class="label">해당 건 납부할 증여세액</div>
+          <div class="label">해당 건 자진납부할 세액</div>
           <div class="amount" id="dispFinalTax">0원</div>
           <div class="korean" id="dispFinalTaxKorean">납부세액 없음 (전액 비과세)</div>
+          <div class="effective-rate" id="dispItemEffectiveRate">과세가액 대비 실효세율: 0.0%</div>
         </div>
 
-        <!-- Step-by-Step Breakdown Table -->
+        <!-- Breakdown Table -->
         <table class="statement-table">
-          <tbody>
-            <tr>
-              <td class="item-name">
-                당해 증여재산가액
-                <span class="item-law">이번 건의 순수 증여액</span>
-              </td>
-              <td class="item-val" id="dispCurrentGift">0원</td>
-            </tr>
-            <tr id="rowPriorSum" style="display:none;">
-              <td class="item-name">
-                (+) 과거 10년 합산 가산액
-                <span class="item-law" id="dispPriorSumLaw">상증세법 제47조 제2항 (동일인 누적 합산)</span>
-              </td>
-              <td class="item-val" style="color:#c4b5fd;" id="dispPriorSum">+0원</td>
-            </tr>
-            <tr>
-              <td class="item-name">
-                (-) 채무인수액
-                <span class="item-law">부담부증여 승계 채무 (대출/보증금)</span>
-              </td>
-              <td class="item-val negative" id="dispDebt">-0원</td>
-            </tr>
-            <tr>
-              <td class="item-name" style="font-weight:700; color:var(--text-main);">
-                = 증여세 과세가액
-                <span class="item-law">당해 증여 + 합산액 - 채무액</span>
-              </td>
-              <td class="item-val" id="dispTaxableVal">0원</td>
-            </tr>
-            <tr>
-              <td class="item-name">
-                (-) 증여재산공제
-                <span class="item-law" id="dispDeductionLaw">상증세법 제53조 (10년 한도 소진 후 잔여액)</span>
-              </td>
-              <td class="item-val negative" id="dispDeduction">-0원</td>
-            </tr>
-            <tr id="rowMarriageDeduction" style="display:none;">
-              <td class="item-name">
-                (-) 혼인·출산 추가공제
-                <span class="item-law">상증세법 제53조의2 (최대 1억 원 추가)</span>
-              </td>
-              <td class="item-val negative" id="dispMarriageDeduction">-0원</td>
-            </tr>
-            <tr>
-              <td class="item-name" style="font-weight:800; color:#38bdf8;">
-                = 증여세 과세표준
-                <span class="item-law">1,000원 미만 절사</span>
-              </td>
-              <td class="item-val highlight" id="dispTaxBase">0원</td>
-            </tr>
-            <tr>
-              <td class="item-name">
-                적용 세율 및 누진공제
-                <span class="item-law" id="dispTaxRateTier">1억 원 이하: 10%</span>
-              </td>
-              <td class="item-val" id="dispTaxRate">0%</td>
-            </tr>
-            <tr>
-              <td class="item-name">
-                합산 산출세액
-                <span class="item-law">과세표준 × 세율 - 누진공제</span>
-              </td>
-              <td class="item-val" id="dispCalcTax">0원</td>
-            </tr>
-            <tr id="rowSkipAdd" style="display:none;">
-              <td class="item-name">
-                (+) 세대생략 할증세액
-                <span class="item-law">상증세법 제57조 (일반 30%, 미성년·20억 초과 40%)</span>
-              </td>
-              <td class="item-val" style="color:var(--accent-amber);" id="dispSkipTax">+0원</td>
-            </tr>
-            <tr id="rowPriorCredit" style="display:none;">
-              <td class="item-name">
-                (-) 기납부세액공제
-                <span class="item-law">상증세법 제58조 (이전 증여 납부액 차감)</span>
-              </td>
-              <td class="item-val negative" id="dispPriorCredit">-0원</td>
-            </tr>
-            <tr>
-              <td class="item-name">
-                (-) 신고세액공제
-                <span class="item-law">상증세법 제69조 (기한 내 자진신고 3%)</span>
-              </td>
-              <td class="item-val negative" id="dispReportCredit">-0원</td>
-            </tr>
+          <tbody id="statementTableBody">
+            <!-- Rendered by JS -->
           </tbody>
         </table>
+
+        <!-- Tax Flow Diagram Box -->
+        <div class="tax-flow-card" id="taxFlowCard">
+          <div class="tax-flow-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M4 12h16M13 5l7 7-7 7"/>
+            </svg>
+            세액 산출 공식 한눈에 보기 (실시간 연동)
+          </div>
+          <div class="tax-flow-steps" id="taxFlowSteps">
+            <!-- Dynamic flow nodes rendered by JS -->
+          </div>
+        </div>
 
         <!-- Zero Tax Banner -->
         <div class="alert-banner" id="zeroTaxBanner">
           <div class="title">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
             </svg>
-            비과세 (납부할 증여세 0원)
+            비과세 확인 (납부할 증여세 0원)
           </div>
           <p>
-            10년 증여공제 범위 이내여서 세금이 나오지 않습니다. <strong>국세청 홈택스에 0원 자진신고</strong>를 완료하여 <strong>[증여세 전자신고 접수증]</strong>을 발급받아 두시면 해외송금 및 은행 자금출처 증빙으로 바로 활용할 수 있습니다.
+            10년 증여재산공제 한도 이내여서 세액이 발생하지 않습니다. <strong>국세청 홈택스에 0원 자진신고</strong>를 완료하여 <strong>[증여세 전자신고 접수증]</strong>을 발급받아 두시면 향후 부동산 취득, 해외송금(IBKR 등) 자금출처조사 시 완벽한 합법 소명 자료가 됩니다.
           </p>
         </div>
 
         <!-- Installment Alert -->
         <div class="installment-alert" id="installmentBox" style="display:none;">
-          <div class="title">⚡ 분할납부(분납) 가능 (상증세법 제70조)</div>
+          <div class="title">⚡ 분할납부(분납) 및 연부연납 안내</div>
           <p id="installmentDesc">
-            납부세액이 1,000만 원을 초과하여 2개월 이내에 나누어 낼 수 있습니다.
+            납부세액이 1,000만 원을 초과하여 분할납부가 가능합니다.
+          </p>
+        </div>
+
+        <!-- Overdue Penalty Alert -->
+        <div class="installment-alert" id="overdueBox" style="display:none; background:var(--accent-rose-soft); border-color:rgba(225,29,72,0.3);">
+          <div class="title" style="color:var(--accent-rose);">⚠️ 법정 신고기한 경과 (가산세 발생 위험)</div>
+          <p id="overdueDesc" style="color:var(--text-sub);">
+            법정신고기한 내 미신고 시 신고세액공제(3%)가 배제되며, 무신고가산세(20%) 및 납부지연가산세(1일당 0.022%)가 가산됩니다.
+          </p>
+        </div>
+
+        <!-- Debt Capital Gains Notice -->
+        <div class="installment-alert" id="debtCapitalGainsBox" style="display:none; background:var(--accent-purple-soft); border-color:rgba(124,58,237,0.3);">
+          <div class="title" style="color:var(--accent-purple);">💡 부담부증여 채무 승계분 양도소득세 주의</div>
+          <p id="debtCapitalGainsDesc" style="color:var(--text-sub);">
+            수증자가 인수한 채무액은 증여재산에서 공제되지만, <strong>증여자에게 해당 채무액에 대한 양도소득세</strong>가 부과됩니다 (소득세법 제88조 제1호).
           </p>
         </div>
 
         <p class="disclaimer">
-          본 결과는 입력한 증여일·관계·채무를 기준으로 한 참고용 모의계산입니다. 실제 신고 전에는 증여계약서,
-          채무 승계 여부, 혼인·출산 요건 및 신고기한을 확인하고 세무전문가 또는 국세청 안내를 함께 확인하세요.
+          본 결과는 현행 「상속세 및 증여세법」 및 대법원 판례에 따라 정밀하게 산출한 모의계산입니다. 실제 신고 시에는 증여계약서, 금융거래 내역, 부채증명서 등 증빙서류를 구비하시기 바랍니다.
         </p>
-
       </div>
     </div>
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </div>
 </div>
+
+<!-- Modal 1: Law & Precedent Library -->
+<div class="modal-backdrop" id="lawModalBackdrop" onclick="handleBackdropClick(event, 'lawModalBackdrop')">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h3>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+        </svg>
+        상속세 및 증여세법 핵심 법령 & 대법원 판례 해설집
+      </h3>
+      <button type="button" class="modal-close-btn" onclick="closeModal('lawModalBackdrop')">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- Section 1 -->
+      <div class="law-section">
+        <h4>
+          1. 10년 합산과세 대상인 '동일인'의 범위
+          <span class="law-badge">상증법 제47조 제2항</span>
+        </h4>
+        <div class="law-box">
+          <strong>제47조(증여세 과세가액) 제2항</strong><br>
+          "해당 증여일 전 10년 이내에 <strong>동일인(증여자가 직계존속인 경우에는 그 직계존속의 배우자를 포함한다)</strong>으로부터 받은 증여재산가액을 합친 금액이 1천만원 이상인 경우에는 그 가액을 증여세 과세가액에 가산한다."
+        </div>
+        <div class="precedent-box">
+          <strong>대법원 판례 및 조세심판원 결정례 태도</strong> (대법원 2004두13284, 국심2006서1700 등)<br>
+          • <strong>부 ↔ 모:</strong> 부부이므로 직계존속의 배우자에 해당하여 <strong>동일인 합산 대상 O</strong><br>
+          • <strong>친조부 ↔ 친조모:</strong> 조부모 부부끼리는 <strong>동일인 합산 대상 O</strong><br>
+          • <strong>부모 ↔ 조부모:</strong> 세대가 다르고 부모와 조부모는 배우자 관계가 아니므로 <strong>동일인이 아님 (합산 X)</strong><br>
+          ※ 본 시뮬레이터는 법원 판례에 따라 부모와 조부모를 별개 동일인 그룹으로 분리하여 합산누진세율을 정확하게 계산합니다.
+        </div>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="law-section">
+        <h4>
+          2. 증여재산공제 한도의 승계 및 공유 원칙
+          <span class="law-badge">상증법 제53조</span>
+        </h4>
+        <div class="law-box">
+          <strong>제53조(증여재산 공제)</strong><br>
+          거주자가 다음 각 호의 어느 하나에 해당하는 사람으로부터 증여를 받은 경우에는 10년간 다음 금액을 공제한다.<br>
+          1. <strong>배우자:</strong> 6억 원<br>
+          2. <strong>직계존속:</strong> 5,000만 원 (수증자가 미성년자인 경우 2,000만 원)<br>
+          3. <strong>직계비속:</strong> 5,000만 원<br>
+          4. <strong>기타 친족(6촌 이내 혈족, 4촌 이내 인척):</strong> 1,000만 원
+        </div>
+        <p>
+          ※ 주의: 직계존속 공제(5천만/2천만 원)는 부모뿐만 아니라 조부모, 외조부모까지 **모든 직계존속을 통틀어 10년간 총합 1회** 적용됩니다. 따라서 할아버지가 2천만 원을 공제받았다면, 부모 증여 시 남은 공제 한도는 3천만 원이 됩니다.
+        </p>
+      </div>
+
+      <!-- Section 3 -->
+      <div class="law-section">
+        <h4>
+          3. 혼인·출산 증여재산공제 신설
+          <span class="law-badge">상증법 제53조의2 (2024.1.1 시행)</span>
+        </h4>
+        <div class="law-box">
+          <strong>직계존속으로부터 증여 시 기본공제와 별도로 1억 원 추가 공제</strong><br>
+          • <strong>혼인 공제:</strong> 혼인신고일 전 2년 이내 또는 혼인신고일 후 2년 이내 (총 4년 기간)<br>
+          • <strong>출산 공제:</strong> 자녀 출생일(또는 입양신고일)로부터 2년 이내<br>
+          • <strong>통합 한도:</strong> 혼인과 출산을 합산하여 평생 1인당 1억 원 한도 (신랑·신부 각자 최대 1.5억씩, 양가 총 3억 원 비과세 증여 가능)
+        </div>
+      </div>
+
+      <!-- Section 4 -->
+      <div class="law-section">
+        <h4>
+          4. 기납부세액공제 한도 산식의 법정 원칙
+          <span class="law-badge">상증법 제58조 제2항 & 판례</span>
+        </h4>
+        <div class="precedent-box">
+          <strong>제58조 제2항 공제한도액 산식</strong><br>
+          $$\text{공제한도액} = \text{합산 산출세액} \times \left( \frac{\text{가산한 종전 증여재산 과세표준}}{\text{합산 총 과세표준}} \right)$$<br>
+          실제 공제세액은 <strong>[종전 산출세액]</strong>과 <strong>[공제한도액]</strong> 중 적은 금액을 적용합니다 (대법원 2011두13881 전원합의체 준용).
+        </div>
+      </div>
+
+      <!-- Section 5 -->
+      <div class="law-section">
+        <h4>
+          5. 세대생략 할증과세 및 대습증여 예외
+          <span class="law-badge">상증법 제57조</span>
+        </h4>
+        <div class="law-box">
+          • 직계비속의 자녀(손자녀)에게 증여 시 산출세액의 <strong>30% 할증</strong>.<br>
+          • 미성년자이고 증여재산가액이 20억 원을 초과하는 경우 <strong>40% 할증</strong>.<br>
+          • <strong>대습증여 예외(단서):</strong> 증여 당시 수증자의 부모가 모두 사망한 경우에는 세대생략 할증을 적용하지 않습니다.
+        </div>
+      </div>
+
+      <!-- Section 6 -->
+      <div class="law-section">
+        <h4>
+          6. 부담부증여와 증여자 양도소득세
+          <span class="law-badge">소득세법 제88조 제1호</span>
+        </h4>
+        <p>
+          전세보증금이나 담보대출을 낀 상태로 부동산을 증여하는 경우, 채무 승계액은 증여재산가액에서 차감되어 증여세가 대폭 절감됩니다. 그러나 세법상 <strong>채무액만큼은 증여자가 수증자에게 대가를 받고 유상양도한 것으로 보아 증여자에게 양도소득세</strong>가 부과되므로 두 세목의 세부담을 함께 비교해야 합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 2: Overseas / IBKR Funding Proof Guide -->
+<div class="modal-backdrop" id="overseasModalBackdrop" onclick="handleBackdropClick(event, 'overseasModalBackdrop')">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h3>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+        해외계좌(IBKR) 송금 및 자금출처 소명 실무 가이드
+      </h3>
+      <button type="button" class="modal-close-btn" onclick="closeModal('overseasModalBackdrop')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="law-section">
+        <h4>1. 비과세(0원) 증여도 홈택스에 꼭 신고해야 하는 이유</h4>
+        <div class="law-box">
+          <strong>외국환거래규정 제4-3조 및 자금세탁방지(AML) 규정</strong><br>
+          국내 거주자가 IBKR 등 해외 브로커리지로 1만 달러를 초과하여 송금할 때, 외국환은행은 합법적인 자금출처(소득원 증빙)를 제출할 것을 요구합니다. 또한 1만 달러 초과 송금 내역은 국세청에 자동 통보됩니다.
+        </div>
+        <p>
+          부모에게 5,000만 원을 비과세로 받았더라도 국세청에 신고하지 않으면 은행 창구에서 "자금출처 미소명"으로 송금이 거절되거나, 국세청 자금출처조사 대상(상증법 제45조)으로 분류될 수 있습니다. <strong>증여세 0원 신고 후 [증여세 전자신고 접수증]을 발급받아 은행에 제출하면 100% 합법적 자금출처로 인정</strong>받습니다.
+        </p>
+      </div>
+
+      <div class="law-section">
+        <h4>2. 홈택스 10분 만에 0원 전자신고 완료하는 4단계</h4>
+        <ol style="padding-left:1.25rem; line-height:1.7;">
+          <li><strong>국세청 홈택스(hometax.go.kr) 접속:</strong> 로그인 후 [세금신고] → [증여세] → [정기신고] 선택</li>
+          <li><strong>기본정보 입력:</strong> 증여일자, 증여자(부모 주민번호), 수증자(본인 주민번호) 입력</li>
+          <li><strong>증여재산가액 입력:</strong> 본 계산기에서 산출된 증여재산가액(예: 50,000,000원) 입력</li>
+          <li><strong>증여재산공제 입력:</strong> [직계존속] 란에 동일 금액(50,000,000원) 입력 → 과세표준 0원 확인 후 제출</li>
+        </ol>
+      </div>
+
+      <div class="law-section">
+        <h4>3. 해외 파생상품/옵션 투자 시 놓치기 쉬운 3대 세무 의무</h4>
+        <div class="precedent-box">
+          • <strong>해외 파생상품 양도소득세 (소득세법 제94조):</strong> 매년 5월, 연간 실현손익 기준 <strong>11%</strong>(지방소득세 포함, 기본공제 250만 원) 자진신고.<br>
+          • <strong>해외금융계좌 신고 (국제조세조정법 제53조):</strong> 연중 매월 말일 기준 잔액이 한 번이라도 <strong>5억 원을 초과</strong>하면 매년 6월 관할 세무서에 신고.<br>
+          • <strong>외환 사후보고 (외국환거래규정 제7-12조):</strong> 연간 입금액 또는 연말 잔액이 <strong>10만 달러 초과</strong> 시 다음 해 1월 말일까지 지정은행에 잔액보고.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 3: Split Gift Auto Planner -->
+<div class="modal-backdrop" id="splitPlannerModalBackdrop" onclick="handleBackdropClick(event, 'splitPlannerModalBackdrop')">
+  <div class="modal-container" style="max-width: 620px;">
+    <div class="modal-header">
+      <h3>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        분할 증여 스마트 플래너 (N회 균등 분할 생성기)
+      </h3>
+      <button type="button" class="modal-close-btn" onclick="closeModal('splitPlannerModalBackdrop')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:0.85rem; color:var(--text-sub); margin-bottom:1.25rem;">
+        한 번에 큰 금액을 증여받지 않고 여러 해에 걸쳐 나누어 받을 때, 총 목표 금액과 횟수·주기를 설정하면 <strong>회차별 증여 일정과 분할 금액이 원장에 자동 생성</strong>됩니다.
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:1.1rem;">
+        <!-- Donor Select -->
+        <div>
+          <label style="display:block; font-size:0.8rem; font-weight:700; color:var(--text-muted); margin-bottom:0.35rem;">증여자 선택</label>
+          <select id="plannerDonorSelect" class="donor-select" style="width:100%; padding:0.55rem 0.75rem;">
+            <option value="parent_father">부 (아버지)</option>
+            <option value="parent_mother">모 (어머니)</option>
+            <option value="grandparent_paternal">친조부모 (할아버지/할머니)</option>
+            <option value="grandparent_maternal">외조부모 (외할아버지/외할머니)</option>
+            <option value="spouse">배우자 (6억 비과세)</option>
+            <option value="child">자녀</option>
+            <option value="relative">기타 친족</option>
+          </select>
+        </div>
+
+        <!-- Total Target Amount -->
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.35rem;">
+            <label style="font-size:0.8rem; font-weight:700; color:var(--text-muted);">총 목표 증여금액</label>
+            <span id="plannerKoreanAmt" style="font-size:0.85rem; font-weight:800; color:var(--accent-blue);">1억 원</span>
+          </div>
+          <div class="sub-input-wrap">
+            <input type="text" id="plannerTotalAmt" class="sub-input" value="100,000,000" style="font-size:1.2rem; padding:0.55rem 0.85rem;" oninput="updatePlannerKoreanAmt(this.value)">
+          </div>
+          <div class="chips-row" style="margin-top:0.4rem;">
+            <button type="button" class="chip-btn" onclick="setPlannerAmt(50000000)">5,000만</button>
+            <button type="button" class="chip-btn" onclick="setPlannerAmt(100000000)">1억</button>
+            <button type="button" class="chip-btn" onclick="setPlannerAmt(150000000)">1.5억 (혼인비과세)</button>
+            <button type="button" class="chip-btn" onclick="setPlannerAmt(200000000)">2억</button>
+            <button type="button" class="chip-btn" onclick="setPlannerAmt(300000000)">3억</button>
+          </div>
+        </div>
+
+        <!-- Split Count & Interval Grid -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.85rem;">
+          <div>
+            <label style="display:block; font-size:0.8rem; font-weight:700; color:var(--text-muted); margin-bottom:0.35rem;">분할 수령 횟수</label>
+            <select id="plannerCount" class="donor-select" style="width:100%; padding:0.55rem 0.75rem;">
+              <option value="2" selected>2회 분할 (50%씩)</option>
+              <option value="3">3회 분할 (33.3%씩)</option>
+              <option value="4">4회 분할 (25%씩)</option>
+              <option value="5">5회 분할 (20%씩)</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block; font-size:0.8rem; font-weight:700; color:var(--text-muted); margin-bottom:0.35rem;">분할 간격 (주기)</label>
+            <select id="plannerInterval" class="donor-select" style="width:100%; padding:0.55rem 0.75rem;">
+              <option value="1">1년 주기</option>
+              <option value="2">2년 주기</option>
+              <option value="3">3년 주기</option>
+              <option value="10">10년 주기 (비과세 한도 갱신용)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Start Date -->
+        <div>
+          <label style="display:block; font-size:0.8rem; font-weight:700; color:var(--text-muted); margin-bottom:0.35rem;">1차 증여 시작일</label>
+          <input type="date" id="plannerStartDate" class="sub-input" style="width:100%; padding:0.55rem 0.75rem;" value="2024-01-01">
+        </div>
+
+        <!-- Action Button -->
+        <div style="margin-top:0.75rem; display:flex; gap:0.5rem; justify-content:flex-end;">
+          <button type="button" class="btn-action" onclick="closeModal('splitPlannerModalBackdrop')">취소</button>
+          <button type="button" class="btn-action highlight" onclick="executeSplitPlan()">
+            <span>⚡</span> 분할 증여 회차 자동 생성하기
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
   // State
   let recipientAge = 'adult'; // 'adult' | 'minor'
   let selectedEventId = 2;
-  const STORAGE_KEY = 'gift-tax-calculator-v2';
+  let activeReceiptTab = 'simple'; // 'simple' | 'nts'
+  let listSortOrder = 'desc'; // 'desc' (최신순 / 새 증여 위로) | 'asc' (과거순 / #1차부터)
+  let ledgerViewMode = 'by_donor'; // 'by_donor' (증여자별 분할 관리) | 'timeline' (시간순 타임라인)
+  const STORAGE_KEY = 'gift-tax-calc-pro-state-v2';
   let toastTimer;
 
-  // Single unified Gift Events Ledger
+  // Donor Profiles Dictionary
+  const DONOR_PROFILES = {
+    parent_father: { name: '부 (아버지)', avatar: '👨', samePersonGroup: 'parents', deductionGroup: 'direct_ascendants', canSkip: false, groupLabel: '부모 동일인' },
+    parent_mother: { name: '모 (어머니)', avatar: '👩', samePersonGroup: 'parents', deductionGroup: 'direct_ascendants', canSkip: false, groupLabel: '부모 동일인' },
+    grandparent_paternal: { name: '친조부모 (할아버지/할머니)', avatar: '👴', samePersonGroup: 'grandparents_paternal', deductionGroup: 'direct_ascendants', canSkip: true, groupLabel: '친조부모 동일인' },
+    grandparent_maternal: { name: '외조부모 (외할아버지/외할머니)', avatar: '👵', samePersonGroup: 'grandparents_maternal', deductionGroup: 'direct_ascendants', canSkip: true, groupLabel: '외조부모 동일인' },
+    spouse: { name: '배우자', avatar: '💍', samePersonGroup: 'spouse', deductionGroup: 'spouse', canSkip: false, groupLabel: '배우자 단독' },
+    child: { name: '자녀', avatar: '👶', samePersonGroup: 'child', deductionGroup: 'direct_descendants', canSkip: false, groupLabel: '자녀 단독' },
+    relative: { name: '기타 친족 (형제/자매/삼촌 등)', avatar: '👥', samePersonGroup: 'relative', deductionGroup: 'other_relatives', canSkip: false, groupLabel: '친족 그룹' },
+    other: { name: '타인', avatar: '👤', samePersonGroup: 'other', deductionGroup: 'other', canSkip: false, groupLabel: '타인' }
+  };
+
+  // Gift Events Ledger
   let giftEvents = [
     {
       id: 1,
@@ -1732,6 +2074,7 @@
       debt: 0,
       isMarriage: false,
       isSkip: false,
+      isSubstitute: false,
       isTimely: true
     },
     {
@@ -1742,6 +2085,7 @@
       debt: 0,
       isMarriage: false,
       isSkip: false,
+      isSubstitute: false,
       isTimely: true
     }
   ];
@@ -1752,7 +2096,6 @@
     return d.toISOString().split('T')[0];
   }
 
-  // Helpers
   function parseNum(val) {
     if (!val) return 0;
     return parseInt(String(val).replace(/[^0-9]/g, ''), 10) || 0;
@@ -1766,79 +2109,6 @@
     return new Date().toISOString().split('T')[0];
   }
 
-  function showToast(message) {
-    const toast = document.getElementById('toast');
-    if (!toast) return;
-    toast.textContent = message;
-    toast.classList.add('visible');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('visible'), 2400);
-  }
-
-  function saveState() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ recipientAge, selectedEventId, giftEvents }));
-      const status = document.getElementById('saveStatus');
-      if (status) status.textContent = `자동 저장 ${new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })}`;
-    } catch (error) {
-      const status = document.getElementById('saveStatus');
-      if (status) status.textContent = '자동 저장 실패';
-      console.error('증여세 계산기 상태 저장에 실패했습니다.', error);
-    }
-  }
-
-  function loadState() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      const state = JSON.parse(raw);
-      if (!Array.isArray(state.giftEvents) || state.giftEvents.length === 0) return;
-      const validEvents = state.giftEvents.filter(ev =>
-        ev && Number.isFinite(Number(ev.id)) && typeof ev.date === 'string' && typeof ev.person === 'string'
-      ).map(ev => ({
-        id: Number(ev.id),
-        date: ev.date,
-        person: ev.person,
-        amount: Math.max(0, parseNum(ev.amount)),
-        debt: Math.max(0, parseNum(ev.debt)),
-        isMarriage: Boolean(ev.isMarriage),
-        isSkip: Boolean(ev.isSkip),
-        isTimely: ev.isTimely !== false
-      }));
-      if (validEvents.length === 0) return;
-      giftEvents = validEvents;
-      recipientAge = state.recipientAge === 'minor' ? 'minor' : 'adult';
-      selectedEventId = Number(state.selectedEventId);
-    } catch (error) {
-      console.error('저장된 증여세 계산기 상태를 불러오지 못했습니다.', error);
-      showToast('저장된 입력을 불러오지 못했습니다.');
-    }
-  }
-
-  function printStatement() {
-    if (!calculationResults[selectedEventId]) {
-      showToast('인쇄할 증여 내역을 먼저 선택해 주세요.');
-      return;
-    }
-    window.print();
-  }
-
-  function exportData() {
-    const blob = new Blob([JSON.stringify({
-      exportedAt: new Date().toISOString(),
-      recipientAge,
-      giftEvents,
-      selectedEventId
-    }, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `증여세-계산-내역-${todayString()}.json`;
-    link.click();
-    URL.revokeObjectURL(url);
-    showToast('계산 내역을 파일로 저장했습니다.');
-  }
-
   function toKoreanNumber(num) {
     if (!num || num === 0) return '0원';
     const units = ['', '만', '억', '조'];
@@ -1849,7 +2119,7 @@
     while (temp > 0) {
       const part = temp % 10000;
       if (part > 0) {
-        result = `${part.toLocaleString('ko-KR')}${units[unitIdx]} ${result}`;
+        result = part.toLocaleString('ko-KR') + units[unitIdx] + ' ' + result;
       }
       temp = Math.floor(temp / 10000);
       unitIdx++;
@@ -1857,41 +2127,46 @@
     return (num < 0 ? '-' : '') + result.trim() + ' 원';
   }
 
-  function setRecipientAge(age) {
-    recipientAge = age;
-    document.getElementById('btnAdult').className = 'btn-toggle-age ' + (age === 'adult' ? 'active' : '');
-    document.getElementById('btnMinor').className = 'btn-toggle-age ' + (age === 'minor' ? 'active' : '');
-    recalculateAll(true);
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('visible'), 2400);
   }
 
-  function getDonorGroup(personKey) {
-    if (personKey === 'parent_father' || personKey === 'parent_mother' || personKey === 'grandparent') {
-      return 'direct_ascendants';
-    }
-    return personKey;
+  // Statutory Filing Deadline (상증세법 제68조: 말일로부터 3개월)
+  function calculateFilingDeadline(dateStr) {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return { deadlineStr: '-', isOverdue: false, daysDiff: 0 };
+    // 말일 구하기
+    const lastDayOfMonth = new Date(d.getFullYear(), d.getMonth() + 1, 0);
+    // 3개월 후 말일
+    const deadline = new Date(lastDayOfMonth.getFullYear(), lastDayOfMonth.getMonth() + 4, 0);
+    const deadlineStr = deadline.toISOString().split('T')[0];
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const deadlineDate = new Date(deadline);
+    deadlineDate.setHours(0,0,0,0);
+
+    const diffTime = deadlineDate.getTime() - today.getTime();
+    const daysDiff = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const isOverdue = daysDiff < 0;
+
+    return { deadlineStr, isOverdue, daysDiff };
   }
 
-  function getMaxDeductionForGroup(personKey) {
-    if (personKey === 'parent_father' || personKey === 'parent_mother') {
+  // Max Group Deduction (상증세법 제53조)
+  function getMaxDeductionForGroup(groupKey) {
+    if (groupKey === 'direct_ascendants') {
       return recipientAge === 'adult' ? 50000000 : 20000000;
     }
-    if (personKey === 'spouse') return 600000000;
-    if (personKey === 'child') return 50000000;
-    if (personKey === 'relative') return 10000000;
-    return 0; // 'other'
-  }
-
-  function getPersonDisplayName(personKey) {
-    switch (personKey) {
-      case 'parent_father': return '부 (아버지)';
-      case 'parent_mother': return '모 (어머니)';
-      case 'grandparent': return '조부 / 조모';
-      case 'spouse': return '배우자';
-      case 'child': return '자녀';
-      case 'relative': return '기타 친족 (형제/삼촌)';
-      case 'other': return '타인';
-      default: return personKey;
-    }
+    if (groupKey === 'spouse') return 600000000;
+    if (groupKey === 'direct_descendants') return 50000000;
+    if (groupKey === 'other_relatives') return 10000000;
+    return 0; // other
   }
 
   // Core Chronological Tax Engine
@@ -1908,68 +2183,98 @@
     giftEvents.forEach((ev, idx) => {
       totalGiftsSum += ev.amount;
       const evDate = new Date(ev.date);
-      const evGroup = getDonorGroup(ev.person);
-      const maxGroupDeduction = getMaxDeductionForGroup(ev.person);
+      const evProfile = DONOR_PROFILES[ev.person] || DONOR_PROFILES.parent_father;
+      const maxGroupDeduction = getMaxDeductionForGroup(evProfile.deductionGroup);
 
-      // Find all prior events within 10 years of this event in the same donor group
+      // Ten years ago threshold
       const tenYearsAgo = new Date(evDate);
       tenYearsAgo.setFullYear(tenYearsAgo.getFullYear() - 10);
 
-      const priorSameGroupEvents = [];
+      // Find prior events within 10 years
+      const priorEventsSameDeductionGroup = [];
+      const priorEventsSamePersonGroup = [];
+
       for (let j = 0; j < idx; j++) {
         const pEv = giftEvents[j];
         const pDate = new Date(pEv.date);
-        if (pDate >= tenYearsAgo && pDate <= evDate && getDonorGroup(pEv.person) === evGroup) {
-          priorSameGroupEvents.push({
-            event: pEv,
-            result: calculationResults[pEv.id]
-          });
+        const pProfile = DONOR_PROFILES[pEv.person] || DONOR_PROFILES.parent_father;
+
+        if (pDate >= tenYearsAgo && pDate <= evDate) {
+          // 공유 공제 그룹 (직계존속 등)
+          if (pProfile.deductionGroup === evProfile.deductionGroup) {
+            priorEventsSameDeductionGroup.push({
+              event: pEv,
+              result: calculationResults[pEv.id]
+            });
+          }
+          // 동일인 합산 그룹 (부모, 조부모, 배우자 등) - 상증법 제47조 제2항
+          if (pProfile.samePersonGroup === evProfile.samePersonGroup) {
+            priorEventsSamePersonGroup.push({
+              event: pEv,
+              result: calculationResults[pEv.id]
+            });
+          }
         }
       }
 
-      let priorGrossSum = 0;
-      let priorDeductionsSum = 0;
-      let priorMarriageDeductionsSum = 0;
-      let priorCalculatedTax = 0;
-
-      priorSameGroupEvents.forEach(p => {
-        priorGrossSum += (p.event.amount - Math.min(p.event.debt, p.event.amount));
-        priorDeductionsSum += p.result.appliedStandardDeduction;
-        priorMarriageDeductionsSum += p.result.appliedMarriageDeduction;
-        // The credit is the tax already calculated for the immediately
-        // preceding cumulative total, not the sum of recalculated totals.
-        priorCalculatedTax = Math.max(priorCalculatedTax, p.result.totalCalculatedTax);
+      // 10년간 사용된 표준 증여재산공제 누적액 추적
+      let priorUsedStandardDeductions = 0;
+      let priorUsedMarriageDeductions = 0;
+      priorEventsSameDeductionGroup.forEach(p => {
+        if (p.result) {
+          priorUsedStandardDeductions += p.result.appliedStandardDeduction || 0;
+          priorUsedMarriageDeductions += p.result.appliedMarriageDeduction || 0;
+        }
       });
 
-      const remainingDeduction = Math.max(0, maxGroupDeduction - priorDeductionsSum);
+      const remainingStandardDeduction = Math.max(0, maxGroupDeduction - priorUsedStandardDeductions);
+
+      // 동일인 10년 합산 가액 및 기납부세액 계산 (상증세법 제47조 제2항 동일인 기준)
+      let priorSamePersonGrossSum = 0;
+      let priorSamePersonCalculatedTaxSum = 0;
+      let priorSamePersonTaxBaseSum = 0;
+      let priorSamePersonStandardDeductions = 0;
+      let priorSamePersonMarriageDeductions = 0;
+
+      priorEventsSamePersonGroup.forEach(p => {
+        if (p.result) {
+          priorSamePersonGrossSum += p.result.currentNet || 0;
+          priorSamePersonCalculatedTaxSum += p.result.totalCalculatedTax || 0;
+          priorSamePersonTaxBaseSum += p.result.taxBase || 0;
+          priorSamePersonStandardDeductions += p.result.appliedStandardDeduction || 0;
+          priorSamePersonMarriageDeductions += p.result.appliedMarriageDeduction || 0;
+        }
+      });
 
       const currentGross = ev.amount;
       const effectiveDebt = Math.min(ev.debt, currentGross);
       const currentNet = Math.max(0, currentGross - effectiveDebt);
 
-      // Cumulative tax condition: 상증세법 제47조 제2항 (10년 내 동일인 합계 1천만 원 이상)
-      const isCumulative = priorGrossSum >= 10000000;
-      const addedPriorGross = isCumulative ? priorGrossSum : 0;
+      // 상증세법 제47조 제2항: 10년 내 동일인 합계 1,000만 원 이상일 때 과세가액 가산
+      const isCumulative = priorSamePersonGrossSum >= 10000000;
+      const addedPriorGross = isCumulative ? priorSamePersonGrossSum : 0;
       const totalTaxableVal = currentNet + addedPriorGross;
 
-      // Standard Deduction
-      const appliedStandardDeduction = Math.min(totalTaxableVal, remainingDeduction);
+      // 당해 건에 신규 적용되는 표준 증여재산공제 (상증세법 제53조)
+      const appliedStandardDeduction = Math.min(currentNet, remainingStandardDeduction);
 
-      // Marriage Deduction
+      // 혼인·출산 추가공제 (상증세법 제53조의2 - 1억 한도)
       let appliedMarriageDeduction = 0;
-      if (ev.isMarriage && evGroup === 'direct_ascendants') {
-        const remainingAfterStandard = totalTaxableVal - appliedStandardDeduction;
-        const remainingMarriageDeduction = Math.max(0, 100000000 - priorMarriageDeductionsSum);
+      if (ev.isMarriage && evProfile.deductionGroup === 'direct_ascendants') {
+        const remainingAfterStandard = currentNet - appliedStandardDeduction;
+        const remainingMarriageDeduction = Math.max(0, 100000000 - priorUsedMarriageDeductions);
         appliedMarriageDeduction = Math.min(remainingAfterStandard, remainingMarriageDeduction);
       }
 
-      // Tax Base (1,000원 미만 절사)
-      const cumulativeDeductions = priorDeductionsSum + appliedStandardDeduction +
-        priorMarriageDeductionsSum + appliedMarriageDeduction;
-      let taxBase = Math.max(0, totalTaxableVal - cumulativeDeductions);
+      // 과세표준 (1,000원 미만 절사 - 국세기본법 제47조)
+      // 합산과세 시 총 과세가액에서 (과거 동일인 공제액 + 당해 건 공제액)을 차감하여 과표 산정
+      const totalSamePersonDeductions = (isCumulative ? priorSamePersonStandardDeductions : 0) + appliedStandardDeduction +
+        (isCumulative ? priorSamePersonMarriageDeductions : 0) + appliedMarriageDeduction;
+
+      let taxBase = Math.max(0, totalTaxableVal - totalSamePersonDeductions);
       taxBase = Math.floor(taxBase / 1000) * 1000;
 
-      // Progressive Tax Rate
+      // 5단계 누진세율
       let rate = 0;
       let progressiveDeduction = 0;
       let tierText = '';
@@ -1984,15 +2289,15 @@
       } else if (taxBase <= 500000000) {
         rate = 0.20;
         progressiveDeduction = 10000000;
-        tierText = '1억~5억 이하: 20% (누진공제 1,000만)';
+        tierText = '1억~5억: 20% (누진공제 1,000만)';
       } else if (taxBase <= 1000000000) {
         rate = 0.30;
         progressiveDeduction = 60000000;
-        tierText = '5억~10억 이하: 30% (누진공제 6,000만)';
+        tierText = '5억~10억: 30% (누진공제 6,000만)';
       } else if (taxBase <= 3000000000) {
         rate = 0.40;
         progressiveDeduction = 160000000;
-        tierText = '10억~30억 이하: 40% (누진공제 1.6억)';
+        tierText = '10억~30억: 40% (누진공제 1.6억)';
       } else {
         rate = 0.50;
         progressiveDeduction = 460000000;
@@ -2004,46 +2309,64 @@
         calculatedTax = Math.floor(taxBase * rate - progressiveDeduction);
       }
 
-      // Generation skip surtax applies to grandparent gifts only.
+      // 세대생략 할증세액 (상증세법 제57조: 기본 30%, 미성년+20억초과 40%, 대습증여 제외)
       let skipTax = 0;
-      if (ev.isSkip && ev.person === 'grandparent' && calculatedTax > 0) {
-        const skipRate = recipientAge === 'minor' && currentGross > 2000000000 ? 0.4 : 0.3;
+      let skipRate = 0;
+      if (ev.isSkip && evProfile.canSkip && !ev.isSubstitute && calculatedTax > 0) {
+        skipRate = (recipientAge === 'minor' && currentGross > 2000000000) ? 0.40 : 0.30;
         skipTax = Math.floor(calculatedTax * skipRate);
       }
 
       const totalCalculatedTax = calculatedTax + skipTax;
 
-      // Prior paid tax credit (상증세법 제58조)
+      // 기납부세액공제 (상증세법 제58조 제1항 및 제2항 법정 한도 안분액)
       let appliedPriorCredit = 0;
-      if (isCumulative && priorCalculatedTax > 0 && totalCalculatedTax > 0) {
-        appliedPriorCredit = Math.min(totalCalculatedTax, priorCalculatedTax);
+      let priorCreditLimit = 0;
+      if (isCumulative && priorSamePersonCalculatedTaxSum > 0 && totalCalculatedTax > 0) {
+        priorCreditLimit = taxBase > 0 ? Math.floor(totalCalculatedTax * (priorSamePersonTaxBaseSum / taxBase)) : 0;
+        appliedPriorCredit = Math.min(priorSamePersonCalculatedTaxSum, priorCreditLimit);
       }
 
       const taxAfterPriorCredit = Math.max(0, totalCalculatedTax - appliedPriorCredit);
 
-      // Timely report credit (3%)
+      // 자진신고세액공제 (상증세법 제69조: 기한 내 3%)
       let reportCredit = 0;
       if (ev.isTimely && taxAfterPriorCredit > 0) {
         reportCredit = Math.floor(taxAfterPriorCredit * 0.03);
       }
 
-      // Final Tax (10원 미만 절사)
+      // 최종 자진납부할 세액 (국고금관리법: 10원 미만 절사)
       let finalTax = Math.max(0, taxAfterPriorCredit - reportCredit);
       finalTax = Math.floor(finalTax / 10) * 10;
 
       totalTaxSum += finalTax;
 
+      // Deadline check
+      const deadlineInfo = calculateFilingDeadline(ev.date);
+
       calculationResults[ev.id] = {
         order: idx + 1,
         event: ev,
+        profile: evProfile,
+        deadlineInfo,
         currentGross,
         effectiveDebt,
         currentNet,
+        isCumulative,
         addedPriorGross,
-        priorGrossSum,
+        priorSamePersonGrossSum,
+        priorSamePersonStandardDeductions,
+        priorSamePersonMarriageDeductions,
+        priorUsedStandardDeductions,
+        priorUsedMarriageDeductions,
+        priorEventsSamePersonGroup,
+        priorEventsSameDeductionGroup,
+        priorSamePersonCalculatedTaxSum,
+        priorSamePersonTaxBaseSum,
+        totalSamePersonDeductions,
         totalTaxableVal,
         maxGroupDeduction,
-        remainingDeduction,
+        remainingStandardDeduction,
         appliedStandardDeduction,
         appliedMarriageDeduction,
         taxBase,
@@ -2051,8 +2374,10 @@
         progressiveDeduction,
         tierText,
         calculatedTax,
+        skipRate,
         skipTax,
         totalCalculatedTax,
+        priorCreditLimit,
         appliedPriorCredit,
         taxAfterPriorCredit,
         reportCredit,
@@ -2065,10 +2390,18 @@
     }
 
     // Update Top Bento KPIs
-    document.getElementById('kpiTotalCount').textContent = `${giftEvents.length}건`;
-    document.getElementById('kpiTotalGift').textContent = `${formatNum(totalGiftsSum)}원`;
-    document.getElementById('kpiTotalGiftSub').textContent = toKoreanNumber(totalGiftsSum);
-    document.getElementById('kpiTotalTax').textContent = `${formatNum(totalTaxSum)}원`;
+    const kpiCountEl = document.getElementById('kpiTotalCount');
+    if (kpiCountEl) kpiCountEl.textContent = giftEvents.length + '건';
+    const kpiTotalEl = document.getElementById('kpiTotalGift');
+    if (kpiTotalEl) kpiTotalEl.textContent = formatNum(totalGiftsSum) + '원';
+    const kpiTotalSubEl = document.getElementById('kpiTotalGiftSub');
+    if (kpiTotalSubEl) kpiTotalSubEl.textContent = toKoreanNumber(totalGiftsSum);
+    const kpiTaxEl = document.getElementById('kpiTotalTax');
+    if (kpiTaxEl) kpiTaxEl.textContent = formatNum(totalTaxSum) + '원';
+
+    const overallEffectiveRate = totalGiftsSum > 0 ? ((totalTaxSum / totalGiftsSum) * 100).toFixed(1) : '0.0';
+    const kpiEffEl = document.getElementById('kpiEffectiveRate');
+    if (kpiEffEl) kpiEffEl.textContent = '실효 ' + overallEffectiveRate + '%';
 
     // Parent deduction progress
     const parentMax = recipientAge === 'adult' ? 50000000 : 20000000;
@@ -2079,7 +2412,8 @@
 
     giftEvents.forEach(ev => {
       const d = new Date(ev.date);
-      if (d >= tenYearsAgoFromNow && getDonorGroup(ev.person) === 'direct_ascendants') {
+      const prof = DONOR_PROFILES[ev.person];
+      if (d >= tenYearsAgoFromNow && prof && prof.deductionGroup === 'direct_ascendants') {
         const res = calculationResults[ev.id];
         if (res) parentUsed += res.appliedStandardDeduction;
       }
@@ -2087,10 +2421,15 @@
 
     const parentRemain = Math.max(0, parentMax - parentUsed);
     const parentPct = Math.min(100, Math.round((parentUsed / parentMax) * 100));
-    document.getElementById('kpiParentRemain').textContent = toKoreanNumber(parentRemain);
-    document.getElementById('kpiParentPercent').textContent = `${parentPct}% 소진`;
-    document.getElementById('parentProgressBar').style.width = `${parentPct}%`;
-    document.getElementById('kpiParentUsed').textContent = `10년 누적 사용: ${formatNum(parentUsed)}원 / 한도 ${formatNum(parentMax)}원`;
+    const kpiRemainEl = document.getElementById('kpiParentRemain');
+    if (kpiRemainEl) kpiRemainEl.textContent = toKoreanNumber(parentRemain);
+    const kpiParentPctEl = document.getElementById('kpiParentPercent');
+    if (kpiParentPctEl) kpiParentPctEl.textContent = (100 - parentPct) + '% 잔여 (' + parentPct + '% 소진)';
+    const barEl = document.getElementById('parentProgressBar');
+    if (barEl) barEl.style.width = parentPct + '%';
+    const kpiParentUsedEl = document.getElementById('kpiParentUsed');
+    if (kpiParentUsedEl) kpiParentUsedEl.textContent = '기사용: ' + formatNum(parentUsed) + '원 / 한도 ' + formatNum(parentMax) + '원';
+
     saveState();
 
     if (shouldRenderCards) {
@@ -2104,76 +2443,115 @@
   function updateExistingCardBadges() {
     giftEvents.forEach(ev => {
       const res = calculationResults[ev.id];
-      const isZero = res && res.finalTax === 0;
-      const tagEl = document.getElementById(`tax_tag_${ev.id}`);
+      if (!res) return;
+      const isZero = res.finalTax === 0;
+
+      const tagEl = document.getElementById('tax_tag_' + ev.id);
       if (tagEl) {
-        tagEl.className = `badge-tax-status ${isZero ? 'zero' : 'taxed'}`;
-        tagEl.textContent = isZero ? '비과세 (0원)' : `납부세액: ${formatNum(res.finalTax)}원`;
+        tagEl.className = 'badge-tax-status ' + (isZero ? 'zero' : 'taxed');
+        tagEl.textContent = isZero ? '비과세 (0원)' : '납부세액: ' + formatNum(res.finalTax) + '원';
       }
-      const koreanAmtEl = document.getElementById(`korean_amt_${ev.id}`);
-      if (koreanAmtEl) {
-        koreanAmtEl.textContent = toKoreanNumber(ev.amount);
-      }
-      const koreanDebtEl = document.getElementById(`korean_debt_${ev.id}`);
-      if (koreanDebtEl) {
-        koreanDebtEl.textContent = toKoreanNumber(ev.debt);
-      }
-      const amountInput = document.getElementById(`input_amt_${ev.id}`);
-      const amountError = document.getElementById(`amount_error_${ev.id}`);
-      if (amountInput) amountInput.classList.toggle('invalid', ev.amount <= 0);
-      if (amountError) amountError.classList.toggle('visible', ev.amount <= 0);
-      const debtInput = document.getElementById(`input_debt_${ev.id}`);
-      const debtError = document.getElementById(`debt_error_${ev.id}`);
-      if (debtInput) debtInput.classList.toggle('invalid', ev.debt > ev.amount);
-      if (debtError) debtError.classList.toggle('visible', ev.debt > ev.amount);
+      const koreanAmtEl = document.getElementById('korean_amt_' + ev.id);
+      if (koreanAmtEl) koreanAmtEl.textContent = toKoreanNumber(ev.amount);
+      const koreanDebtEl = document.getElementById('korean_debt_' + ev.id);
+      if (koreanDebtEl) koreanDebtEl.textContent = toKoreanNumber(ev.debt);
+      const debtWarnEl = document.getElementById('debt_warn_' + ev.id);
+      if (debtWarnEl) debtWarnEl.classList.toggle('visible', ev.debt > 0);
     });
   }
 
-  function renderEventList() {
-    const container = document.getElementById('eventListContainer');
-    container.innerHTML = '';
-
-    if (giftEvents.length === 0) {
-      container.innerHTML = `
-        <div style="text-align:center; padding:3.5rem 1rem; color:var(--text-muted); border:1px dashed var(--border-subtle); border-radius:var(--radius-md);">
-          등록된 증여 내역이 없습니다.<br>
-          우측 상단의 <strong>[새 증여 추가]</strong> 버튼을 눌러 첫 번째 증여를 등록해 보세요.
-        </div>
-      `;
-      return;
+  // View Mode: 'by_donor' vs 'timeline'
+  function setLedgerViewMode(mode) {
+    ledgerViewMode = mode;
+    const btnByDonor = document.getElementById('btnViewByDonor');
+    const btnTimeline = document.getElementById('btnViewTimeline');
+    const timelineSortGroup = document.getElementById('timelineSortGroup');
+    if (btnByDonor) btnByDonor.classList.toggle('active', mode === 'by_donor');
+    if (btnTimeline) btnTimeline.classList.toggle('active', mode === 'timeline');
+    if (timelineSortGroup) {
+      timelineSortGroup.style.display = mode === 'timeline' ? 'flex' : 'none';
     }
+    saveState();
+    renderEventList();
+    showToast(mode === 'by_donor' ? '증여자별 분할 관리 뷰 (인물별 회차 모아보기)' : '시간순 타임라인 뷰 (전체 내역 순서대로)');
+  }
 
-    giftEvents.forEach((ev, idx) => {
-      const res = calculationResults[ev.id];
-      const isSelected = ev.id === selectedEventId;
-      const isZero = res && res.finalTax === 0;
+  function setListSortOrder(order) {
+    listSortOrder = order;
+    const btnDesc = document.getElementById('btnSortDesc');
+    const btnAsc = document.getElementById('btnSortAsc');
+    if (btnDesc) btnDesc.classList.toggle('active', order === 'desc');
+    if (btnAsc) btnAsc.classList.toggle('active', order === 'asc');
+    saveState();
+    renderEventList();
+    showToast(order === 'desc' ? '정렬: 최신 증여 우선 (새 증여 위로)' : '정렬: 과거 증여 순서대로 (#1차부터)');
+  }
 
-      const card = document.createElement('div');
-      card.className = `event-card ${isSelected ? 'selected' : ''}`;
-      card.id = `card_${ev.id}`;
+  // Quick Add for a Specific Donor
+  function quickAddForDonor(personKey) {
+    const prof = DONOR_PROFILES[personKey] || DONOR_PROFILES.parent_father;
+    const newId = Date.now();
+    giftEvents.push({
+      id: newId,
+      date: todayString(),
+      person: personKey,
+      amount: 10000000,
+      debt: 0,
+      isMarriage: false,
+      isSkip: false,
+      isSubstitute: false,
+      isTimely: true
+    });
+    selectedEventId = newId;
+    recalculateAll(true);
+    showToast(prof.name + ' 님 증여 건이 추가되었습니다.');
 
-      card.innerHTML = `
-        <!-- Top Row: Order, Date, Donor, Status, Delete -->
+    setTimeout(() => {
+      const cardEl = document.getElementById('card_' + newId);
+      if (cardEl) {
+        cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        const inputEl = document.getElementById('input_amt_' + newId);
+        if (inputEl) inputEl.focus();
+      }
+    }, 120);
+  }
+
+  // Single Card HTML Template
+  function generateCardHTML(ev, badgeText) {
+    const res = calculationResults[ev.id];
+    const isSelected = ev.id === selectedEventId;
+    const isZero = res && res.finalTax === 0;
+    const deadline = res ? res.deadlineInfo : calculateFilingDeadline(ev.date);
+    const prof = DONOR_PROFILES[ev.person] || DONOR_PROFILES.parent_father;
+
+    return `
+      <div class="event-card ${isSelected ? 'selected' : ''}" id="card_${ev.id}">
+        <!-- Card Top -->
         <div class="card-top">
           <div class="card-meta">
-            <span class="badge-order">#${idx + 1}차</span>
+            <span class="badge-order">${badgeText}</span>
             <div class="date-input-wrap">
               <input type="date" value="${ev.date}" max="${todayString()}" onchange="updateEvent(${ev.id}, 'date', this.value)">
             </div>
             <select class="donor-select" onchange="updateEvent(${ev.id}, 'person', this.value)">
               <option value="parent_father" ${ev.person === 'parent_father' ? 'selected' : ''}>부 (아버지)</option>
               <option value="parent_mother" ${ev.person === 'parent_mother' ? 'selected' : ''}>모 (어머니)</option>
-              <option value="grandparent" ${ev.person === 'grandparent' ? 'selected' : ''}>조부 / 조모</option>
-              <option value="spouse" ${ev.person === 'spouse' ? 'selected' : ''}>배우자</option>
-              <option value="child" ${ev.person === 'child' ? 'selected' : ''}>자녀</option>
-              <option value="relative" ${ev.person === 'relative' ? 'selected' : ''}>기타 친족</option>
-              <option value="other" ${ev.person === 'other' ? 'selected' : ''}>타인</option>
+              <option value="grandparent_paternal" ${ev.person === 'grandparent_paternal' ? 'selected' : ''}>친조부모 (할아버지/할머니)</option>
+              <option value="grandparent_maternal" ${ev.person === 'grandparent_maternal' ? 'selected' : ''}>외조부모 (외할아버지/외할머니)</option>
+              <option value="spouse" ${ev.person === 'spouse' ? 'selected' : ''}>배우자 (6억 공제)</option>
+              <option value="child" ${ev.person === 'child' ? 'selected' : ''}>자녀 (5천만 공제)</option>
+              <option value="relative" ${ev.person === 'relative' ? 'selected' : ''}>기타 친족 (1천만 공제)</option>
+              <option value="other" ${ev.person === 'other' ? 'selected' : ''}>타인 (공제 0원)</option>
             </select>
+            <span class="group-indicator-pill">${prof.groupLabel}</span>
           </div>
 
           <div class="card-top-right">
+            <span class="badge-deadline ${deadline.isOverdue ? 'overdue' : 'ontime'}">
+              ${deadline.isOverdue ? `⚠️ 기한 경과 (${deadline.deadlineStr})` : `신고기한: ${deadline.deadlineStr} (D-${deadline.daysDiff})`}
+            </span>
             <span class="badge-tax-status ${isZero ? 'zero' : 'taxed'}" id="tax_tag_${ev.id}">
-              ${isZero ? '비과세 (0원)' : `납부세액: ${formatNum(res.finalTax)}원`}
+              ${isZero ? '비과세 (0원)' : `납부세액: ${formatNum(res ? res.finalTax : 0)}원`}
             </span>
             <button type="button" class="btn-delete-card" title="내역 삭제" onclick="deleteGiftEvent(${ev.id})">✕</button>
           </div>
@@ -2191,23 +2569,21 @@
               onfocus="this.select()"
               oninput="handleAmountInput(${ev.id}, this.value)"
               onblur="this.value = formatNum(getEventById(${ev.id}).amount)">
-            <button type="button" class="btn-inline-clear" title="금액 초기화" onclick="setEventAmount(${ev.id}, 0)">✕</button>
+            <button type="button" class="chip-btn reset" style="padding:0.25rem 0.5rem;" title="0원 초기화" onclick="setEventAmount(${ev.id}, 0)">✕</button>
           </div>
-          <div class="field-error ${ev.amount <= 0 ? 'visible' : ''}" id="amount_error_${ev.id}">증여 재산가액을 1원 이상 입력하세요.</div>
 
           <!-- Quick Chips Row -->
           <div class="chips-row">
-            <button type="button" class="chip-btn reset" onclick="setEventAmount(${ev.id}, 0)">초기화 (0원)</button>
+            <button type="button" class="chip-btn reset" onclick="setEventAmount(${ev.id}, 0)">초기화</button>
             <button type="button" class="chip-btn" onclick="addEventAmount(${ev.id}, 1000000)">+100만</button>
             <button type="button" class="chip-btn" onclick="addEventAmount(${ev.id}, 5000000)">+500만</button>
             <button type="button" class="chip-btn" onclick="addEventAmount(${ev.id}, 10000000)">+1천만</button>
             <button type="button" class="chip-btn" onclick="addEventAmount(${ev.id}, 50000000)">+5천만</button>
             <button type="button" class="chip-btn" onclick="addEventAmount(${ev.id}, 100000000)">+1억</button>
-            <button type="button" class="chip-btn minus" onclick="addEventAmount(${ev.id}, -1000000)">-100만</button>
           </div>
         </div>
 
-        <!-- Sub Fields: Debt & Special Options -->
+        <!-- Sub Fields: Debt & Options -->
         <div class="sub-fields-grid">
           <!-- Debt Field -->
           <div class="sub-field-box">
@@ -2220,31 +2596,45 @@
                 onfocus="this.select()"
                 oninput="handleDebtInput(${ev.id}, this.value)"
                 onblur="this.value = formatNum(getEventById(${ev.id}).debt)">
-              <button type="button" class="btn-inline-clear" style="position:absolute; right:6px;" title="채무액 초기화" onclick="setEventDebt(${ev.id}, 0)">✕</button>
             </div>
-            <div class="field-error ${ev.debt > ev.amount ? 'visible' : ''}" id="debt_error_${ev.id}">채무액은 증여 재산가액을 초과할 수 없습니다.</div>
+            <div class="debt-warning-notice ${ev.debt > 0 ? 'visible' : ''}" id="debt_warn_${ev.id}">
+              💡 채무액(${toKoreanNumber(ev.debt)})은 유상양도로 간주되어 증여자에게 양도소득세가 과세됩니다.
+            </div>
             <div class="chips-row" style="margin-top:0.4rem; padding-top:0.4rem;">
-              <button type="button" class="chip-btn reset" style="font-size:0.72rem; padding:0.2rem 0.5rem;" onclick="setEventDebt(${ev.id}, 0)">0원</button>
-              <button type="button" class="chip-btn" style="font-size:0.72rem; padding:0.2rem 0.5rem;" onclick="addEventDebt(${ev.id}, 1000000)">+100만</button>
-              <button type="button" class="chip-btn" style="font-size:0.72rem; padding:0.2rem 0.5rem;" onclick="addEventDebt(${ev.id}, 10000000)">+1천만</button>
+              <button type="button" class="chip-btn reset" style="font-size:0.7rem; padding:0.15rem 0.45rem;" onclick="setEventDebt(${ev.id}, 0)">0원</button>
+              <button type="button" class="chip-btn" style="font-size:0.7rem; padding:0.15rem 0.45rem;" onclick="addEventDebt(${ev.id}, 10000000)">+1천만</button>
+              <button type="button" class="chip-btn" style="font-size:0.7rem; padding:0.15rem 0.45rem;" onclick="addEventDebt(${ev.id}, 50000000)">+5천만</button>
             </div>
           </div>
 
-          <!-- Special Options (Modern Pill Toggles) -->
+          <!-- Options Bar -->
           <div class="sub-field-box" style="display:flex; flex-direction:column; justify-content:space-between;">
             <div class="sub-field-header">
-              <span class="label">특별 공제 및 할증 설정</span>
-              <span class="desc">클릭하여 토글</span>
+              <span class="label">세법상 특별 공제 및 할증</span>
+              <span class="desc">원클릭 토글</span>
             </div>
             <div class="options-pill-bar">
               <div class="pill-toggle ${ev.isMarriage ? 'active' : ''}" onclick="toggleOption(${ev.id}, 'isMarriage')">
-                <span>💒</span> 혼인·출산 공제 (+1억)
+                <span>💒 혼인·출산 공제 (+1억)</span>
+                <span class="pill-check">${ev.isMarriage ? '✓' : ''}</span>
               </div>
-              <div class="pill-toggle ${ev.isSkip ? 'active' : ''}" onclick="toggleOption(${ev.id}, 'isSkip')">
-                <span>👴</span> 세대생략 (+30%)
-              </div>
+
+              ${prof.canSkip ? `
+                <div class="pill-toggle ${ev.isSkip ? 'active' : ''}" onclick="toggleOption(${ev.id}, 'isSkip')">
+                  <span>👴 세대생략 할증 (+30%/40%)</span>
+                  <span class="pill-check">${ev.isSkip ? '✓' : ''}</span>
+                </div>
+                ${ev.isSkip ? `
+                  <div class="pill-toggle ${ev.isSubstitute ? 'active' : ''}" onclick="toggleOption(${ev.id}, 'isSubstitute')">
+                    <span>🕊️ 대습증여(부모 사망 시 할증 면제)</span>
+                    <span class="pill-check">${ev.isSubstitute ? '✓' : ''}</span>
+                  </div>
+                ` : ''}
+              ` : ''}
+
               <div class="pill-toggle ${ev.isTimely ? 'active' : ''}" onclick="toggleOption(${ev.id}, 'isTimely')">
-                <span>⚡</span> 자진신고 (-3%)
+                <span>⚡ 기한 내 자진신고 (산출세액 -3%)</span>
+                <span class="pill-check">${ev.isTimely ? '✓' : ''}</span>
               </div>
             </div>
           </div>
@@ -2252,37 +2642,238 @@
 
         <!-- Card Footer -->
         <div class="card-footer">
+          <div class="card-footer-info">
+            ${res && res.addedPriorGross > 0 ? `상증법 제47조: 10년 내 동일인 합산 +${formatNum(res.addedPriorGross)}원 적용 중` : '단독 과세 대상 (동일인 사전증여 합산 없음)'}
+          </div>
           <button type="button" class="btn-inspect" onclick="selectEvent(${ev.id})">
             ${isSelected ? '✓ 현재 산출서 확인 중' : '세액 산출서 보기 →'}
           </button>
         </div>
+      </div>
+    `;
+  }
+
+  // Render Event List based on ledgerViewMode
+  function renderEventList() {
+    const container = document.getElementById('eventListContainer');
+    container.innerHTML = '';
+
+    if (giftEvents.length === 0) {
+      container.innerHTML = `
+        <div style="text-align:center; padding:3.5rem 1rem; color:var(--text-muted); border:1px dashed var(--border-subtle); border-radius:var(--radius-md);">
+          등록된 증여 내역이 없습니다.<br>
+          상단의 <strong>고정 증여자 퀵 추가</strong> 또는 <strong>[새 증여 추가]</strong> 버튼을 눌러 첫 번째 증여를 등록해 보세요.
+        </div>
+      `;
+      return;
+    }
+
+    if (ledgerViewMode === 'by_donor') {
+      renderByDonorView(container);
+    } else {
+      renderTimelineView(container);
+    }
+  }
+
+  // View 1: Grouped by Donor (인물 중심 분할 관리)
+  function renderByDonorView(container) {
+    const donorGroups = {};
+    giftEvents.forEach(ev => {
+      if (!donorGroups[ev.person]) {
+        donorGroups[ev.person] = [];
+      }
+      donorGroups[ev.person].push(ev);
+    });
+
+    const donorOrder = ['parent_father', 'parent_mother', 'grandparent_paternal', 'grandparent_maternal', 'spouse', 'child', 'relative', 'other'];
+    const activeDonors = donorOrder.filter(k => donorGroups[k] && donorGroups[k].length > 0);
+
+    Object.keys(donorGroups).forEach(k => {
+      if (!activeDonors.includes(k)) activeDonors.push(k);
+    });
+
+    activeDonors.forEach(personKey => {
+      const list = donorGroups[personKey];
+      // 분할 회차는 시간순으로 표시하여 1회차, 2회차, 3회차 흐름 파악
+      list.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+      const prof = DONOR_PROFILES[personKey] || DONOR_PROFILES.parent_father;
+      const totalAmt = list.reduce((sum, item) => sum + item.amount, 0);
+
+      const section = document.createElement('div');
+      section.className = 'donor-group-section';
+      section.id = 'donor_group_' + personKey;
+
+      let cardsHtml = '';
+      list.forEach((ev, idx) => {
+        cardsHtml += generateCardHTML(ev, prof.name.split(' ')[0] + ' #' + (idx + 1) + '회차');
+      });
+
+      section.innerHTML = `
+        <div class="donor-group-header">
+          <div class="donor-profile-info">
+            <span class="donor-avatar">${prof.avatar || '👤'}</span>
+            <div class="donor-name-box">
+              <h3>
+                ${prof.name}
+                <span class="group-indicator-pill">${prof.groupLabel}</span>
+              </h3>
+              <div class="donor-sub-desc">
+                ${prof.samePersonGroup === 'parents' ? '직계존속(부·모) 동일인 합산 과세 대상 (10년 누적)' : '단독 과세 및 10년 누적 관리'}
+              </div>
+            </div>
+          </div>
+          <div class="donor-group-stats">
+            <span class="donor-stat-pill">분할 수령: ${list.length}회차</span>
+            <span class="donor-stat-pill" style="color:var(--accent-blue);">누적: ${toKoreanNumber(totalAmt)}</span>
+            <button type="button" class="btn-action" style="font-size:0.75rem; padding:0.3rem 0.65rem;" onclick="quickAddForDonor('${personKey}')">
+              <span>+</span> 이 분에게 증여 추가
+            </button>
+          </div>
+        </div>
+        <div class="donor-cards-container" style="display:flex; flex-direction:column; gap:1.15rem;">
+          ${cardsHtml}
+        </div>
       `;
 
-      container.appendChild(card);
+      container.appendChild(section);
     });
   }
 
+  // View 2: Chronological Timeline
+  function renderTimelineView(container) {
+    const eventsToRender = [...giftEvents];
+    if (listSortOrder === 'desc') {
+      eventsToRender.sort((a, b) => {
+        const dateDiff = new Date(b.date) - new Date(a.date);
+        if (dateDiff !== 0) return dateDiff;
+        return b.id - a.id;
+      });
+    } else {
+      eventsToRender.sort((a, b) => {
+        const dateDiff = new Date(a.date) - new Date(b.date);
+        if (dateDiff !== 0) return dateDiff;
+        return a.id - b.id;
+      });
+    }
+
+    eventsToRender.forEach(ev => {
+      const res = calculationResults[ev.id];
+      const badgeText = '#' + (res ? res.order : 1) + '차 증여';
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = generateCardHTML(ev, badgeText).trim();
+      container.appendChild(tempDiv.firstElementChild);
+    });
+  }
+
+  // Horizontal Infographic Flow Diagram
+  function renderTaxFlowSteps(res) {
+    const container = document.getElementById('taxFlowSteps');
+    if (!container) return;
+    if (!res) {
+      container.innerHTML = '<span style="color:var(--text-muted);">선택된 증여 내역이 없습니다.</span>';
+      return;
+    }
+
+    let html = `
+      <span class="flow-node" title="당해 순수 증여재산가액">순증여 ${toKoreanNumber(res.currentNet)}</span>
+    `;
+
+    if (res.addedPriorGross > 0) {
+      html += `
+        <span class="flow-arrow">+</span>
+        <span class="flow-node" style="color:var(--accent-purple);" title="10년 내 동일인 사전증여 합산액">합산 ${toKoreanNumber(res.addedPriorGross)}</span>
+      `;
+    }
+
+    html += `
+      <span class="flow-arrow">=</span>
+      <span class="flow-node" title="증여세 과세가액">과세가액 ${toKoreanNumber(res.totalTaxableVal)}</span>
+      <span class="flow-arrow">-</span>
+      <span class="flow-node highlight" title="총 증여재산공제">공제 ${toKoreanNumber(res.totalSamePersonDeductions)}</span>
+      <span class="flow-arrow">=</span>
+      <span class="flow-node highlight" title="증여세 과세표준">과표 ${toKoreanNumber(res.taxBase)}</span>
+      <span class="flow-arrow">×</span>
+      <span class="flow-node" title="누진세율">${res.rate * 100}%</span>
+    `;
+
+    if (res.progressiveDeduction > 0) {
+      html += `
+        <span class="flow-arrow">-</span>
+        <span class="flow-node" title="누진공제액">${toKoreanNumber(res.progressiveDeduction)}</span>
+      `;
+    }
+
+    html += `
+      <span class="flow-arrow">=</span>
+      <span class="flow-node" title="합산 산출세액">산출 ${toKoreanNumber(res.calculatedTax)}</span>
+    `;
+
+    if (res.skipTax > 0) {
+      html += `
+        <span class="flow-arrow">+</span>
+        <span class="flow-node" style="color:var(--accent-amber);" title="세대생략 할증세액 (+30%/40%)">할증 ${toKoreanNumber(res.skipTax)}</span>
+      `;
+    }
+
+    if (res.appliedPriorCredit > 0) {
+      html += `
+        <span class="flow-arrow">-</span>
+        <span class="flow-node" style="color:var(--accent-rose);" title="기납부세액공제">기납부 ${toKoreanNumber(res.appliedPriorCredit)}</span>
+      `;
+    }
+
+    if (res.reportCredit > 0) {
+      html += `
+        <span class="flow-arrow">-</span>
+        <span class="flow-node" style="color:var(--accent-rose);" title="자진신고세액공제 (3%)">신고공제 ${toKoreanNumber(res.reportCredit)}</span>
+      `;
+    }
+
+    html += `
+      <span class="flow-arrow">➔</span>
+      <span class="flow-node tax" title="최종 자진납부할 세액">${res.finalTax === 0 ? '납부세액 0원 (비과세)' : formatNum(res.finalTax) + '원'}</span>
+    `;
+
+    container.innerHTML = html;
+  }
+
+  function switchReceiptTab(tab) {
+    activeReceiptTab = tab;
+    document.getElementById('tabBtnSimple').classList.toggle('active', tab === 'simple');
+    document.getElementById('tabBtnNts').classList.toggle('active', tab === 'nts');
+    renderStatement();
+  }
+
+  // Detailed & Transparent Digital Statement
   function renderStatement() {
     const res = calculationResults[selectedEventId];
     if (!res) {
       document.getElementById('dispReceiptTarget').textContent = '-';
       document.getElementById('dispFinalTax').textContent = '0원';
       document.getElementById('dispFinalTaxKorean').textContent = '-';
+      document.getElementById('statementTableBody').innerHTML = '';
+      renderTaxFlowSteps(null);
       return;
     }
 
     const ev = res.event;
-    document.getElementById('dispReceiptTarget').textContent = `#${res.order}차 증여 [${ev.date} - ${getPersonDisplayName(ev.person)}]`;
+    document.getElementById('dispReceiptTarget').textContent = '#' + res.order + '차 증여 [' + ev.date + ' - ' + res.profile.name + ']';
 
-    // Final Tax Display
     const finalTaxEl = document.getElementById('dispFinalTax');
     const finalTaxKoreanEl = document.getElementById('dispFinalTaxKorean');
     const heroBoxEl = document.getElementById('receiptHeroBox');
     const zeroTaxBannerEl = document.getElementById('zeroTaxBanner');
     const installmentBoxEl = document.getElementById('installmentBox');
     const installmentDescEl = document.getElementById('installmentDesc');
+    const overdueBoxEl = document.getElementById('overdueBox');
+    const overdueDescEl = document.getElementById('overdueDesc');
+    const debtCapitalGainsBoxEl = document.getElementById('debtCapitalGainsBox');
 
-    finalTaxEl.textContent = `${formatNum(res.finalTax)}원`;
+    finalTaxEl.textContent = formatNum(res.finalTax) + '원';
+
+    const effectiveRate = res.currentGross > 0 ? ((res.finalTax / res.currentGross) * 100).toFixed(1) : '0.0';
+    document.getElementById('dispItemEffectiveRate').textContent = '증여재산가액 대비 실효세율: ' + effectiveRate + '%';
 
     if (res.finalTax === 0) {
       heroBoxEl.classList.add('zero-tax');
@@ -2294,20 +2885,20 @@
       finalTaxKoreanEl.textContent = toKoreanNumber(res.finalTax);
       zeroTaxBannerEl.style.display = 'none';
 
-      // 분납 안내 (상증세법 제70조)
+      // 분납 안내 (상증세법 제70조, 제71조)
       if (res.finalTax > 10000000) {
         installmentBoxEl.style.display = 'block';
         if (res.finalTax <= 20000000) {
           const installmentAmt = res.finalTax - 10000000;
           installmentDescEl.innerHTML = `
             총 납부세액 <strong>${formatNum(res.finalTax)}원</strong> 중 <strong>1,000만 원</strong>은 기한 내 납부하고, 
-            초과분인 <strong>${formatNum(installmentAmt)}원</strong>은 <strong>2개월 후</strong>에 분할납부할 수 있습니다.
+            초과분 <strong>${formatNum(installmentAmt)}원</strong>은 <strong>2개월 이내</strong>에 분할납부 가능합니다 (상증세법 제70조).
           `;
         } else {
           const halfAmt = Math.floor(res.finalTax / 2);
           installmentDescEl.innerHTML = `
-            총 납부세액 <strong>${formatNum(res.finalTax)}원</strong> 중 <strong>${formatNum(res.finalTax - halfAmt)}원</strong>은 기한 내 납부하고, 
-            나머지 50%인 <strong>${formatNum(halfAmt)}원</strong>은 <strong>2개월 후</strong>에 분할납부할 수 있습니다.
+            총 납부세액 <strong>${formatNum(res.finalTax)}원</strong> 중 50%인 <strong>${formatNum(res.finalTax - halfAmt)}원</strong>은 기한 내 납부하고, 
+            나머지 50%인 <strong>${formatNum(halfAmt)}원</strong>은 <strong>2개월 후</strong>에 분납하거나, <strong>최대 5년간 연부연납</strong>(담보 제공 필요, 연 3.5%) 신청이 가능합니다 (상증세법 제70·71조).
           `;
         }
       } else {
@@ -2315,71 +2906,330 @@
       }
     }
 
-    // Breakdown Table Items
-    document.getElementById('dispCurrentGift').textContent = `${formatNum(res.currentGross)}원`;
-
-    // Prior Sum Row
-    const rowPriorSum = document.getElementById('rowPriorSum');
-    if (res.addedPriorGross > 0) {
-      rowPriorSum.style.display = 'table-row';
-      document.getElementById('dispPriorSum').textContent = `+${formatNum(res.addedPriorGross)}원`;
-      document.getElementById('dispPriorSumLaw').textContent = `상증세법 제47조 제2항 (10년 내 합계 ${toKoreanNumber(res.addedPriorGross)})`;
+    // Overdue Alert
+    if (res.deadlineInfo.isOverdue && !ev.isTimely) {
+      overdueBoxEl.style.display = 'block';
+      const days = Math.abs(res.deadlineInfo.daysDiff);
+      const estInterest = Math.floor(res.taxAfterPriorCredit * (days * 0.00022));
+      const estPenalty = Math.floor(res.taxAfterPriorCredit * 0.20);
+      overdueDescEl.innerHTML = `
+        법정 신고기한(${res.deadlineInfo.deadlineStr})으로부터 <strong>${days}일 경과</strong>되었습니다.<br>
+        • 무신고가산세(20% 추정): <strong>+${formatNum(estPenalty)}원</strong><br>
+        • 납부지연가산세(1일당 0.022%): <strong>+${formatNum(estInterest)}원</strong>
+      `;
     } else {
-      rowPriorSum.style.display = 'none';
+      overdueBoxEl.style.display = 'none';
     }
 
-    // Debt
-    document.getElementById('dispDebt').textContent = `-${formatNum(res.effectiveDebt)}원`;
-
-    // Taxable Val
-    document.getElementById('dispTaxableVal').textContent = `${formatNum(res.totalTaxableVal)}원`;
-
-    // Standard Deduction
-    document.getElementById('dispDeduction').textContent = `-${formatNum(res.appliedStandardDeduction)}원`;
-    document.getElementById('dispDeductionLaw').textContent = `상증세법 제53조 [잔여 한도 ${toKoreanNumber(res.remainingDeduction)} 중 적용]`;
-
-    // Marriage Deduction
-    const rowMarriage = document.getElementById('rowMarriageDeduction');
-    if (res.appliedMarriageDeduction > 0) {
-      rowMarriage.style.display = 'table-row';
-      document.getElementById('dispMarriageDeduction').textContent = `-${formatNum(res.appliedMarriageDeduction)}원`;
+    // Debt notice
+    if (res.effectiveDebt > 0) {
+      debtCapitalGainsBoxEl.style.display = 'block';
     } else {
-      rowMarriage.style.display = 'none';
+      debtCapitalGainsBoxEl.style.display = 'none';
     }
 
-    // Tax Base
-    document.getElementById('dispTaxBase').textContent = `${formatNum(res.taxBase)}원`;
-
-    // Tax Rate & Tier
-    document.getElementById('dispTaxRate').textContent = `${res.rate * 100}%`;
-    document.getElementById('dispTaxRateTier').textContent = res.tierText;
-
-    // Calculated Tax
-    document.getElementById('dispCalcTax').textContent = `${formatNum(res.calculatedTax)}원`;
-
-    // Surtax
-    const rowSkipAdd = document.getElementById('rowSkipAdd');
-    if (res.skipTax > 0) {
-      rowSkipAdd.style.display = 'table-row';
-      document.getElementById('dispSkipTax').textContent = `+${formatNum(res.skipTax)}원`;
-    } else {
-      rowSkipAdd.style.display = 'none';
+    // Prior gifts string breakdown
+    let priorGiftsListHtml = '';
+    if (res.priorEventsSamePersonGroup && res.priorEventsSamePersonGroup.length > 0) {
+      priorGiftsListHtml = res.priorEventsSamePersonGroup.map(p => {
+        const pEv = p.event;
+        const pProf = DONOR_PROFILES[pEv.person] || DONOR_PROFILES.parent_father;
+        return '• [' + pEv.date + ' ' + pProf.name + '] ' + formatNum(pEv.amount - (pEv.debt||0)) + '원';
+      }).join('<br>');
     }
 
-    // Prior Paid Tax Credit (상증세법 제58조)
-    const rowPriorCredit = document.getElementById('rowPriorCredit');
-    if (res.appliedPriorCredit > 0) {
-      rowPriorCredit.style.display = 'table-row';
-      document.getElementById('dispPriorCredit').textContent = `-${formatNum(res.appliedPriorCredit)}원`;
+    const groupNameStr = res.profile.deductionGroup === 'direct_ascendants' ? '직계존속 (부·모·조부모 전체 10년 합산 공유)' : res.profile.name;
+
+    // Table Rendering
+    const tbody = document.getElementById('statementTableBody');
+    if (activeReceiptTab === 'simple') {
+      document.getElementById('receiptTitleText').textContent = '증여세 산출 명세서 (간편 투명 뷰)';
+      tbody.innerHTML = `
+        <tr>
+          <td class="item-name">
+            당해 증여재산가액
+            <span class="item-law">이번 건의 총 증여 가액</span>
+            ${res.effectiveDebt > 0 ? `
+              <div class="calc-insight-box">
+                총 증여재산 ${formatNum(res.currentGross)}원에서 수증자 인수 채무 ${formatNum(res.effectiveDebt)}원을 뺀 <strong>순수 증여액은 ${formatNum(res.currentNet)}원</strong>입니다.
+                <span class="formula">순 증여가액 = ${formatNum(res.currentGross)}원 - ${formatNum(res.effectiveDebt)}원 = ${formatNum(res.currentNet)}원</span>
+              </div>
+            ` : ''}
+          </td>
+          <td class="item-val">${formatNum(res.currentGross)}원</td>
+        </tr>
+
+        ${res.addedPriorGross > 0 ? `
+          <tr>
+            <td class="item-name">
+              (+) 10년 동일인 합산 가산액
+              <span class="item-law">상증세법 제47조 제2항 (대법원 2004두13284)</span>
+              <div class="calc-insight-box">
+                <strong>동일인 합산 대상 사전증여 내역 (최근 10년 합계 1천만 이상):</strong><br>
+                ${priorGiftsListHtml}
+                <span class="formula">합산 가산액 = ${formatNum(res.addedPriorGross)}원 (${toKoreanNumber(res.addedPriorGross)})</span>
+              </div>
+            </td>
+            <td class="item-val" style="color:var(--accent-purple);">+${formatNum(res.addedPriorGross)}원</td>
+          </tr>
+        ` : ''}
+
+        ${res.effectiveDebt > 0 ? `
+          <tr>
+            <td class="item-name">
+              (-) 채무인수액 (부담부증여)
+              <span class="item-law">수증자가 인수한 담보대출/임대보증금</span>
+              <div class="calc-insight-box warning">
+                수증자가 채무를 대신 갚기로 약정하여 증여세 과세가액에서 공제됩니다.<br>
+                ⚠️ <strong>증여자 양도소득세 주의:</strong> 인수된 채무 ${formatNum(res.effectiveDebt)}원은 증여자의 유상양도로 보아 양도소득세가 부과됩니다 (소득세법 제88조).
+              </div>
+            </td>
+            <td class="item-val negative">-${formatNum(res.effectiveDebt)}원</td>
+          </tr>
+        ` : ''}
+
+        <tr>
+          <td class="item-name" style="font-weight:700; color:var(--text-main);">
+            = 증여세 과세가액
+            <span class="item-law">당해 순증여가액 + 10년 사전동일인합산액</span>
+            <div class="calc-insight-box">
+              <span class="formula">과세가액 = 순증여(${formatNum(res.currentNet)}원) + 합산액(${formatNum(res.addedPriorGross)}원) = ${formatNum(res.totalTaxableVal)}원</span>
+            </div>
+          </td>
+          <td class="item-val">${formatNum(res.totalTaxableVal)}원</td>
+        </tr>
+
+        <tr>
+          <td class="item-name">
+            (-) 증여재산공제 (기본)
+            <span class="item-law">상증세법 제53조 [10년 한도: ${formatNum(res.maxGroupDeduction)}원]</span>
+            <div class="calc-insight-box">
+              • 공제 그룹: <strong>${groupNameStr}</strong><br>
+              • 10년 총 공제한도: <strong>${formatNum(res.maxGroupDeduction)}원</strong> (${toKoreanNumber(res.maxGroupDeduction)})<br>
+              • 이전 사용 누적액: <strong>${formatNum(res.priorUsedStandardDeductions)}원</strong><br>
+              • 이번 건 잔여 공제한도: <strong>${formatNum(res.remainingStandardDeduction)}원</strong> ➔ <strong>${formatNum(res.appliedStandardDeduction)}원</strong> 적용
+              ${res.isCumulative && res.priorSamePersonStandardDeductions > 0 ? `<br>• 합산 과표 산정을 위한 과거 동일인 기공제액: <strong>+${formatNum(res.priorSamePersonStandardDeductions)}원</strong>` : ''}
+              <span class="formula">총 차감 공제 = ${formatNum(res.appliedStandardDeduction + (res.isCumulative ? res.priorSamePersonStandardDeductions : 0))}원</span>
+            </div>
+          </td>
+          <td class="item-val negative">-${formatNum(res.appliedStandardDeduction + (res.isCumulative ? res.priorSamePersonStandardDeductions : 0))}원</td>
+        </tr>
+
+        ${(res.appliedMarriageDeduction + (res.isCumulative ? res.priorSamePersonMarriageDeductions : 0)) > 0 ? `
+          <tr>
+            <td class="item-name">
+              (-) 혼인·출산 추가공제
+              <span class="item-law">상증세법 제53조의2 (최대 1억 원 비과세)</span>
+              <div class="calc-insight-box">
+                직계존속으로부터 혼인/출생 전후 2년 이내 증여 시 1억 원 추가 공제 (기사용: ${formatNum(res.priorUsedMarriageDeductions)}원)
+                <span class="formula">혼인공제 적용 = ${formatNum(res.appliedMarriageDeduction + (res.isCumulative ? res.priorSamePersonMarriageDeductions : 0))}원</span>
+              </div>
+            </td>
+            <td class="item-val negative">-${formatNum(res.appliedMarriageDeduction + (res.isCumulative ? res.priorSamePersonMarriageDeductions : 0))}원</td>
+          </tr>
+        ` : ''}
+
+        <tr>
+          <td class="item-name" style="font-weight:800; color:var(--accent-blue);">
+            = 증여세 과세표준
+            <span class="item-law">1,000원 미만 절사 (국세기본법 제47조)</span>
+            <div class="calc-insight-box">
+              <span class="formula">과세표준 = 과세가액(${formatNum(res.totalTaxableVal)}원) - 공제합계(${formatNum(res.totalSamePersonDeductions)}원) = ${formatNum(res.taxBase)}원</span>
+            </div>
+          </td>
+          <td class="item-val highlight">${formatNum(res.taxBase)}원</td>
+        </tr>
+
+        <tr>
+          <td class="item-name">
+            적용 세율 및 누진공제
+            <span class="item-law">${res.tierText}</span>
+            <div class="calc-insight-box">
+              과세표준 ${formatNum(res.taxBase)}원은 <strong>[${res.tierText}]</strong> 구간에 해당합니다.
+            </div>
+          </td>
+          <td class="item-val">${res.rate * 100}%</td>
+        </tr>
+
+        <tr>
+          <td class="item-name">
+            합산 산출세액
+            <span class="item-law">과세표준 × 세율 - 누진공제</span>
+            <div class="calc-insight-box">
+              ${res.taxBase === 0 ? '과세표준이 0원이므로 산출세액이 발생하지 않습니다 (전액 비과세).' : `
+                <span class="formula">산출세액 = (${formatNum(res.taxBase)}원 × ${res.rate * 100}%) - ${formatNum(res.progressiveDeduction)}원 = ${formatNum(res.calculatedTax)}원</span>
+              `}
+            </div>
+          </td>
+          <td class="item-val">${formatNum(res.calculatedTax)}원</td>
+        </tr>
+
+        ${res.skipTax > 0 ? `
+          <tr>
+            <td class="item-name">
+              (+) 세대생략 할증세액
+              <span class="item-law">상증세법 제57조 (${res.skipRate * 100}% 할증)</span>
+              <div class="calc-insight-box warning">
+                조부모가 손자녀에게 직접 증여하여 산출세액의 ${res.skipRate * 100}%가 할증되었습니다.
+                <span class="formula">할증세액 = ${formatNum(res.calculatedTax)}원 × ${res.skipRate * 100}% = +${formatNum(res.skipTax)}원</span>
+              </div>
+            </td>
+            <td class="item-val" style="color:var(--accent-amber);">+${formatNum(res.skipTax)}원</td>
+          </tr>
+        ` : ''}
+
+        ${res.appliedPriorCredit > 0 ? `
+          <tr>
+            <td class="item-name">
+              (-) 기납부세액공제
+              <span class="item-law">상증세법 제58조 제2항 (대법원 2011두13881 안분 한도 적용)</span>
+              <div class="calc-insight-box">
+                합산된 과거 동일인 건에서 이미 납부했던 세액을 공제하여 이중과세를 방지합니다.<br>
+                • 과거 건 산출세액: ${formatNum(res.priorSamePersonCalculatedTaxSum)}원 / 법정 안분한도: ${formatNum(res.priorCreditLimit)}원
+                <span class="formula">적용 공제액 = Min(과거세액, 법정한도) = -${formatNum(res.appliedPriorCredit)}원</span>
+              </div>
+            </td>
+            <td class="item-val negative">-${formatNum(res.appliedPriorCredit)}원</td>
+          </tr>
+        ` : ''}
+
+        <tr>
+          <td class="item-name">
+            (-) 신고세액공제
+            <span class="item-law">상증세법 제69조 (기한 내 자진신고 3%)</span>
+            <div class="calc-insight-box">
+              신고기한(${res.deadlineInfo.deadlineStr}) 내 자진신고 시 산출세액(기납부 차감 후)의 3% 감면
+              <span class="formula">신고공제 = ${formatNum(res.taxAfterPriorCredit)}원 × 3% = -${formatNum(res.reportCredit)}원</span>
+            </div>
+          </td>
+          <td class="item-val negative">-${formatNum(res.reportCredit)}원</td>
+        </tr>
+
+        <tr style="border-top:2px solid var(--accent-blue);">
+          <td class="item-name" style="font-weight:800; font-size:0.95rem;">
+            = 최종 자진납부할 세액
+            <span class="item-law">10원 미만 절사 (국고금관리법)</span>
+            <div class="calc-insight-box" style="border-left-color:var(--accent-blue); background:var(--accent-blue-soft);">
+              <span class="formula" style="color:var(--text-main);">납부세액 = 산출세액(${formatNum(res.totalCalculatedTax)}원) - 기납부(${formatNum(res.appliedPriorCredit)}원) - 신고공제(${formatNum(res.reportCredit)}원) = ${formatNum(res.finalTax)}원</span>
+            </div>
+          </td>
+          <td class="item-val highlight" style="font-size:1.15rem;">${formatNum(res.finalTax)}원</td>
+        </tr>
+      `;
     } else {
-      rowPriorCredit.style.display = 'none';
+      // 국세청 정규 서식 모드 (별지 제9호 서식 항목 번호)
+      document.getElementById('receiptTitleText').textContent = '국세청 증여세 과세표준 신고서 (별지 제9호 서식)';
+      tbody.innerHTML = `
+        <tr>
+          <td class="item-name">
+            ① 당해 증여재산가액
+            <span class="item-law">서식 항목 (21)</span>
+          </td>
+          <td class="item-val">${formatNum(res.currentGross)}원</td>
+        </tr>
+        <tr>
+          <td class="item-name">
+            ② 채무인수액
+            <span class="item-law">서식 항목 (23) 부담부 채무액</span>
+          </td>
+          <td class="item-val negative">-${formatNum(res.effectiveDebt)}원</td>
+        </tr>
+        <tr>
+          <td class="item-name">
+            ③ 순수 당해 증여가액
+            <span class="item-law">① - ②</span>
+          </td>
+          <td class="item-val">${formatNum(res.currentNet)}원</td>
+        </tr>
+        <tr>
+          <td class="item-name">
+            ④ 10년 내 사전증여 가산액
+            <span class="item-law">서식 항목 (24) 동일인 합산분</span>
+            ${res.addedPriorGross > 0 ? `
+              <div class="calc-insight-box">
+                합산 대상: ${priorGiftsListHtml}
+              </div>
+            ` : ''}
+          </td>
+          <td class="item-val" style="color:var(--accent-purple);">+${formatNum(res.addedPriorGross)}원</td>
+        </tr>
+        <tr>
+          <td class="item-name" style="font-weight:700;">
+            ⑤ 증여세 과세가액
+            <span class="item-law">서식 항목 (25) = ③ + ④</span>
+          </td>
+          <td class="item-val">${formatNum(res.totalTaxableVal)}원</td>
+        </tr>
+        <tr>
+          <td class="item-name">
+            ⑥ 증여재산공제 (기본)
+            <span class="item-law">서식 항목 (27) 상증법 제53조 [${groupNameStr}]</span>
+          </td>
+          <td class="item-val negative">-${formatNum(res.appliedStandardDeduction + (res.isCumulative ? res.priorSamePersonStandardDeductions : 0))}원</td>
+        </tr>
+        <tr>
+          <td class="item-name">
+            ⑦ 혼인·출산 증여재산공제
+            <span class="item-law">서식 항목 (28) 상증법 제53조의2</span>
+          </td>
+          <td class="item-val negative">-${formatNum(res.appliedMarriageDeduction + (res.isCumulative ? res.priorSamePersonMarriageDeductions : 0))}원</td>
+        </tr>
+        <tr>
+          <td class="item-name" style="font-weight:800; color:var(--accent-blue);">
+            ⑧ 증여세 과세표준
+            <span class="item-law">서식 항목 (30) ⑤ - ⑥ - ⑦</span>
+          </td>
+          <td class="item-val highlight">${formatNum(res.taxBase)}원</td>
+        </tr>
+        <tr>
+          <td class="item-name">
+            ⑨ 세율 / 누진공제
+            <span class="item-law">서식 항목 (31) ${res.tierText}</span>
+          </td>
+          <td class="item-val">${res.rate * 100}%</td>
+        </tr>
+        <tr>
+          <td class="item-name">
+            ⑩ 산출세액
+            <span class="item-law">서식 항목 (32) ⑧ × ⑨ - 누진공제</span>
+          </td>
+          <td class="item-val">${formatNum(res.calculatedTax)}원</td>
+        </tr>
+        <tr>
+          <td class="item-name">
+            ⑪ 세대생략 가산액
+            <span class="item-law">서식 항목 (33) 상증법 제57조</span>
+          </td>
+          <td class="item-val" style="color:var(--accent-amber);">+${formatNum(res.skipTax)}원</td>
+        </tr>
+        <tr>
+          <td class="item-name">
+            ⑫ 기납부세액공제
+            <span class="item-law">서식 항목 (35) 상증법 제58조 제2항 한도액</span>
+          </td>
+          <td class="item-val negative">-${formatNum(res.appliedPriorCredit)}원</td>
+        </tr>
+        <tr>
+          <td class="item-name">
+            ⑬ 신고세액공제
+            <span class="item-law">서식 항목 (39) 상증법 제69조 (3%)</span>
+          </td>
+          <td class="item-val negative">-${formatNum(res.reportCredit)}원</td>
+        </tr>
+        <tr style="border-top:2px solid var(--accent-blue);">
+          <td class="item-name" style="font-weight:800; font-size:0.95rem;">
+            ⑭ 자진납부할 세액
+            <span class="item-law">서식 항목 (43) 최종 납부액</span>
+          </td>
+          <td class="item-val highlight" style="font-size:1.15rem;">${formatNum(res.finalTax)}원</td>
+        </tr>
+      `;
     }
 
-    // Timely Report Credit
-    document.getElementById('dispReportCredit').textContent = `-${formatNum(res.reportCredit)}원`;
+    renderTaxFlowSteps(res);
   }
 
-  // Event Mutations
+  // Mutations
   function getEventById(id) {
     return giftEvents.find(e => e.id === id);
   }
@@ -2390,20 +3240,39 @@
     renderStatement();
   }
 
+  function setRecipientAge(age) {
+    recipientAge = age;
+    document.getElementById('btnAdult').classList.toggle('active', age === 'adult');
+    document.getElementById('btnMinor').classList.toggle('active', age === 'minor');
+    recalculateAll(true);
+    showToast('수증자 구분: ' + (age === 'adult' ? '성인 (5천만 공제)' : '미성년자 (2천만 공제)') + ' 적용');
+  }
+
   function addNewGiftEvent() {
     const newId = Date.now();
     giftEvents.push({
       id: newId,
-      date: new Date().toISOString().split('T')[0],
+      date: todayString(),
       person: 'parent_father',
       amount: 10000000,
       debt: 0,
       isMarriage: false,
       isSkip: false,
+      isSubstitute: false,
       isTimely: true
     });
     selectedEventId = newId;
     recalculateAll(true);
+    showToast('새 증여 건이 추가되었습니다.');
+
+    setTimeout(() => {
+      const cardEl = document.getElementById('card_' + newId);
+      if (cardEl) {
+        cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        const inputEl = document.getElementById('input_amt_' + newId);
+        if (inputEl) inputEl.focus();
+      }
+    }, 120);
   }
 
   function deleteGiftEvent(id) {
@@ -2416,19 +3285,19 @@
       selectedEventId = giftEvents[giftEvents.length - 1].id;
     }
     recalculateAll(true);
+    showToast('증여 건이 삭제되었습니다.');
   }
 
   function updateEvent(id, field, value) {
     const ev = getEventById(id);
-    if (ev) {
-      if (field === 'date' && (!value || value > todayString())) {
-        showToast('증여일은 오늘 이전 날짜로 입력해 주세요.');
-        renderEventList();
-        return;
-      }
-      ev[field] = value;
-      recalculateAll(true);
+    if (!ev) return;
+    if (field === 'date' && (!value || value > todayString())) {
+      showToast('증여일은 오늘 이전 날짜로 입력해 주세요.');
+      renderEventList();
+      return;
     }
+    ev[field] = value;
+    recalculateAll(true);
   }
 
   function toggleOption(id, field) {
@@ -2459,7 +3328,7 @@
     const ev = getEventById(id);
     if (ev) {
       ev.amount = Math.max(0, val);
-      const input = document.getElementById(`input_amt_${id}`);
+      const input = document.getElementById('input_amt_' + id);
       if (input) input.value = formatNum(ev.amount);
       recalculateAll(false);
     }
@@ -2469,7 +3338,7 @@
     const ev = getEventById(id);
     if (ev) {
       ev.amount = Math.max(0, (ev.amount || 0) + addVal);
-      const input = document.getElementById(`input_amt_${id}`);
+      const input = document.getElementById('input_amt_' + id);
       if (input) input.value = formatNum(ev.amount);
       recalculateAll(false);
     }
@@ -2479,7 +3348,7 @@
     const ev = getEventById(id);
     if (ev) {
       ev.debt = Math.max(0, val);
-      const input = document.getElementById(`input_debt_${id}`);
+      const input = document.getElementById('input_debt_' + id);
       if (input) input.value = formatNum(ev.debt);
       recalculateAll(false);
     }
@@ -2489,70 +3358,235 @@
     const ev = getEventById(id);
     if (ev) {
       ev.debt = Math.max(0, (ev.debt || 0) + addVal);
-      const input = document.getElementById(`input_debt_${id}`);
+      const input = document.getElementById('input_debt_' + id);
       if (input) input.value = formatNum(ev.debt);
       recalculateAll(false);
     }
   }
 
-  function resetToSample() {
-    giftEvents = [
-      {
-        id: 1,
-        date: getPastDateString(4),
-        person: 'parent_father',
-        amount: 20000000,
+  // Split Gift Auto Planner Modal Functions
+  function openSplitPlannerModal() {
+    const startDateInput = document.getElementById('plannerStartDate');
+    if (startDateInput) startDateInput.value = todayString();
+    document.getElementById('splitPlannerModalBackdrop').classList.add('open');
+  }
+
+  function updatePlannerKoreanAmt(val) {
+    const num = parseNum(val);
+    const badge = document.getElementById('plannerKoreanAmt');
+    if (badge) badge.textContent = toKoreanNumber(num);
+  }
+
+  function setPlannerAmt(amt) {
+    const input = document.getElementById('plannerTotalAmt');
+    if (input) {
+      input.value = formatNum(amt);
+      updatePlannerKoreanAmt(input.value);
+    }
+  }
+
+  function executeSplitPlan() {
+    const donor = document.getElementById('plannerDonorSelect').value;
+    const totalAmt = parseNum(document.getElementById('plannerTotalAmt').value);
+    const count = parseInt(document.getElementById('plannerCount').value, 10) || 2;
+    const intervalYears = parseInt(document.getElementById('plannerInterval').value, 10) || 1;
+    const startDateStr = document.getElementById('plannerStartDate').value || todayString();
+
+    if (totalAmt <= 0) {
+      alert('총 목표 금액을 0원보다 크게 입력해 주세요.');
+      return;
+    }
+
+    const basePart = Math.floor(totalAmt / count);
+    const remainder = totalAmt - (basePart * count);
+    const baseDate = new Date(startDateStr);
+
+    const newEvents = [];
+    for (let i = 0; i < count; i++) {
+      const d = new Date(baseDate);
+      d.setFullYear(d.getFullYear() + (i * intervalYears));
+      const partAmt = (i === count - 1) ? (basePart + remainder) : basePart;
+      newEvents.push({
+        id: Date.now() + i,
+        date: d.toISOString().split('T')[0],
+        person: donor,
+        amount: partAmt,
         debt: 0,
         isMarriage: false,
         isSkip: false,
+        isSubstitute: false,
         isTimely: true
-      },
-      {
-        id: 2,
-        date: getPastDateString(1),
-        person: 'parent_mother',
-        amount: 30000000,
-        debt: 0,
-        isMarriage: false,
-        isSkip: false,
-        isTimely: true
-      },
-      {
-        id: 3,
-        date: new Date().toISOString().split('T')[0],
-        person: 'parent_father',
-        amount: 30000000,
-        debt: 0,
-        isMarriage: false,
-        isSkip: false,
-        isTimely: true
-      }
-    ];
-    selectedEventId = 3;
+      });
+    }
+
+    giftEvents.push(...newEvents);
+    selectedEventId = newEvents[newEvents.length - 1].id;
+    closeModal('splitPlannerModalBackdrop');
+    recalculateAll(true);
+    showToast(count + '회 분할 증여 플랜이 원장에 추가되었습니다!');
+
+    setTimeout(() => {
+      const cardEl = document.getElementById('card_' + selectedEventId);
+      if (cardEl) cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 150);
+  }
+
+  // Preset Scenarios
+  function loadSampleScenario(type) {
+    if (type === 'parents') {
+      giftEvents = [
+        { id: 1, date: getPastDateString(4), person: 'parent_father', amount: 20000000, debt: 0, isMarriage: false, isSkip: false, isSubstitute: false, isTimely: true },
+        { id: 2, date: getPastDateString(1), person: 'parent_mother', amount: 30000000, debt: 0, isMarriage: false, isSkip: false, isSubstitute: false, isTimely: true },
+        { id: 3, date: todayString(), person: 'parent_father', amount: 40000000, debt: 0, isMarriage: false, isSkip: false, isSubstitute: false, isTimely: true }
+      ];
+      selectedEventId = 3;
+      showToast('샘플: 부모 동일인 10년 합산 시나리오를 불러왔습니다.');
+    } else if (type === 'grandparent') {
+      giftEvents = [
+        { id: 1, date: getPastDateString(2), person: 'grandparent_paternal', amount: 50000000, debt: 0, isMarriage: false, isSkip: true, isSubstitute: false, isTimely: true },
+        { id: 2, date: todayString(), person: 'parent_father', amount: 50000000, debt: 0, isMarriage: false, isSkip: false, isSubstitute: false, isTimely: true }
+      ];
+      selectedEventId = 2;
+      showToast('샘플: 조부모 세대생략(+30%) 및 부모 비합산 시나리오를 불러왔습니다.');
+    } else if (type === 'marriage') {
+      giftEvents = [
+        { id: 1, date: todayString(), person: 'parent_father', amount: 150000000, debt: 0, isMarriage: true, isSkip: false, isSubstitute: false, isTimely: true }
+      ];
+      selectedEventId = 1;
+      showToast('샘플: 혼인·출산 1억 공제 시나리오를 불러왔습니다.');
+    }
     recalculateAll(true);
   }
 
-  function clearAllEvents() {
-    giftEvents = [
-      {
-        id: Date.now(),
-        date: new Date().toISOString().split('T')[0],
-        person: 'parent_father',
-        amount: 50000000,
-        debt: 0,
-        isMarriage: false,
-        isSkip: false,
-        isTimely: true
-      }
-    ];
-    selectedEventId = giftEvents[0].id;
-    recalculateAll(true);
+  // Summary Text Copy
+  function copySummaryText() {
+    const res = calculationResults[selectedEventId];
+    if (!res) return;
+    const text = `[증여세 정밀 시뮬레이터 산출 요약]
+- 대상: #${res.order}차 증여 (${res.event.date} / ${res.profile.name})
+- 증여재산가액: ${formatNum(res.currentGross)}원
+- 10년 동일인 합산가산액: ${formatNum(res.addedPriorGross)}원
+- 채무인수액: ${formatNum(res.effectiveDebt)}원
+- 과세가액: ${formatNum(res.totalTaxableVal)}원
+- 증여재산공제: ${formatNum(res.appliedStandardDeduction + res.appliedMarriageDeduction)}원
+- 과세표준: ${formatNum(res.taxBase)}원 (세율: ${res.rate * 100}%)
+- 산출세액(할증 포함): ${formatNum(res.totalCalculatedTax)}원
+- 기납부세액공제: ${formatNum(res.appliedPriorCredit)}원
+- 신고세액공제(3%): ${formatNum(res.reportCredit)}원
+----------------------------------------
+★ 최종 납부할 증여세액: ${formatNum(res.finalTax)}원 (${toKoreanNumber(res.finalTax)})
+- 법정 신고기한: ${res.deadlineInfo.deadlineStr}까지`;
+
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('산출 요약이 클립보드에 복사되었습니다.');
+    }).catch(() => {
+      showToast('클립보드 복사 권한을 확인해주세요.');
+    });
   }
 
-  // Initial Run
+  // State Persistence
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ recipientAge, selectedEventId, listSortOrder, ledgerViewMode, giftEvents }));
+    } catch (e) {
+      console.warn('저장 실패:', e);
+    }
+  }
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const s = JSON.parse(raw);
+      if (Array.isArray(s.giftEvents) && s.giftEvents.length > 0) {
+        giftEvents = s.giftEvents.map(ev => ({
+          id: Number(ev.id),
+          date: ev.date,
+          person: ev.person || 'parent_father',
+          amount: Math.max(0, parseNum(ev.amount)),
+          debt: Math.max(0, parseNum(ev.debt)),
+          isMarriage: Boolean(ev.isMarriage),
+          isSkip: Boolean(ev.isSkip),
+          isSubstitute: Boolean(ev.isSubstitute),
+          isTimely: ev.isTimely !== false
+        }));
+        recipientAge = s.recipientAge === 'minor' ? 'minor' : 'adult';
+        listSortOrder = s.listSortOrder === 'asc' ? 'asc' : 'desc';
+        ledgerViewMode = s.ledgerViewMode === 'timeline' ? 'timeline' : 'by_donor';
+        selectedEventId = Number(s.selectedEventId) || giftEvents[0].id;
+      }
+    } catch (e) {
+      console.warn('로드 실패:', e);
+    }
+  }
+
+  // Theme Management
+  function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme') || 'system';
+    let next = 'light';
+    if (current === 'light') next = 'dark';
+    else if (current === 'dark') next = 'light';
+    else next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark';
+
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('gift-tax-theme', next);
+    showToast('화면 모드: ' + (next === 'dark' ? '다크 모드' : '라이트 모드'));
+  }
+
+  function initTheme() {
+    const saved = localStorage.getItem('gift-tax-theme') || 'system';
+    document.documentElement.setAttribute('data-theme', saved);
+  }
+
+  // Modals
+  function openLawModal() {
+    document.getElementById('lawModalBackdrop').classList.add('open');
+  }
+
+  function openOverseasModal() {
+    document.getElementById('overseasModalBackdrop').classList.add('open');
+  }
+
+  function closeModal(modalId) {
+    const el = document.getElementById(modalId);
+    if (el) el.classList.remove('open');
+  }
+
+  function handleBackdropClick(e, modalId) {
+    if (e.target.id === modalId) {
+      closeModal(modalId);
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeModal('lawModalBackdrop');
+      closeModal('overseasModalBackdrop');
+      closeModal('splitPlannerModalBackdrop');
+    }
+  });
+
+  // Init
+  initTheme();
   loadState();
-  document.getElementById('btnAdult').className = `btn-toggle-age ${recipientAge === 'adult' ? 'active' : ''}`;
-  document.getElementById('btnMinor').className = `btn-toggle-age ${recipientAge === 'minor' ? 'active' : ''}`;
+  document.getElementById('btnAdult').classList.toggle('active', recipientAge === 'adult');
+  document.getElementById('btnMinor').classList.toggle('active', recipientAge === 'minor');
+  if (document.getElementById('btnSortDesc')) {
+    document.getElementById('btnSortDesc').classList.toggle('active', listSortOrder === 'desc');
+  }
+  if (document.getElementById('btnSortAsc')) {
+    document.getElementById('btnSortAsc').classList.toggle('active', listSortOrder === 'asc');
+  }
+  if (document.getElementById('btnViewByDonor')) {
+    document.getElementById('btnViewByDonor').classList.toggle('active', ledgerViewMode === 'by_donor');
+  }
+  if (document.getElementById('btnViewTimeline')) {
+    document.getElementById('btnViewTimeline').classList.toggle('active', ledgerViewMode === 'timeline');
+  }
+  if (document.getElementById('timelineSortGroup')) {
+    document.getElementById('timelineSortGroup').style.display = ledgerViewMode === 'timeline' ? 'flex' : 'none';
+  }
   recalculateAll(true);
 </script>
 
